@@ -133,6 +133,19 @@ http://www.regulus.com.tw/
   - RGB666 / RGB888
 - CLK / HD / VD timing signal supported
 
+#### A/D Converter (ADC)
+
+- 8 channels
+- Resolution: 12-bit
+- Input Range: 0 V ~ 1.8 V
+- Conversion Time: 1 μs
+- Operation Mode: Select mode / scan mode
+- Conversion Mode: Single mode / repeat mode
+- Condition for A/D conversion start
+  - Software trigger
+  - Asynchronous trigger: External trigger supported
+  - Synchronous trigger: MTU and PWM timer
+
 ## Maintainers
 
 ```
