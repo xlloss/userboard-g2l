@@ -194,6 +194,23 @@ http://www.regulus.com.tw/
   - Output: Selectable from 8 kHz*, 16 kHz, 32 kHz, 44.1 kHz, 48 kHz
 - SNR: More than or equal to 80 db
 
+#### Storage and Network
+
+##### USB2.0 Host / Function (USB)
+
+- 2 channels (ch0: Host-Function ch1: Host only)
+- Compliance with USB2.0
+- Supports On-The-Go (OTG) Function
+- Supports Battery Charging Function
+- Internal dedicated DMA
+
+##### Gigabit Ethernet Interface (GbE)
+- 2 channels
+- Supports transfer at 1000 Mbps and 100 Mbps, 10 Mbps
+- Supports filtering of Ethernet frames
+- Supports interface conforming to IEEE802.3 PHY RGMII (Reduced Gigabit Media Independent Interface)
+- Supports interface conforming to IEEE802.3 PHYMII (Media Independent Interface)
+
 #### Peripheral Module
 
 ##### I2C Bus Interface
