@@ -133,6 +133,41 @@ http://www.regulus.com.tw/
   - RGB666 / RGB888
 - CLK / HD / VD timing signal supported
 
+#### Peripheral Module
+
+##### I2C Bus Interface
+● 4 channel
+● Master mode and slave mode supported
+● Support for 7-bit and 10-bit slave address formats
+● Support for multi-master operation
+● Timeout detection
+
+##### Serial Communication Interface with FIFO (SCIFA)
+- 4 channels
+- Clock synchronous mode or asynchronous mode selectable
+- Simultaneous transmission and reception (full-duplex communication) supported
+- Dedicated baud rate generator
+- Separate 16-byte FIFO registers for transmission and reception
+- Modem control function (channel 0, 1, and 2 in asynchronous mode)
+
+##### Serial Communication Interface (SCIg)
+- 2 channels
+- Clock synchronous mode, asynchronous mode, or smart card interface mode is selectable
+- Simultaneous transmission and reception (full-duplex communication) supported
+- Dedicated baud rate generator
+- LSB first / MSB first selectable
+- Modem control function
+- Encoding and decoding of IrDA communications waveforms in accord with version 1.0 of the IrDA standard (on channel 0)
+
+##### Renesas Serial Peripheral Interface (RSPI)
+- 3 channels
+- SPI operation
+- Master mode and slave mode supported
+- Programmable bit length, clock polarity, clock phase can be selected
+- Consecutive transfers
+- LSB first / MSB first selectable
+- Maximum transfer rate: 50 Mbps
+
 #### Trusted Secure IP
 - Security algorism
   - Common key encryption: AES
@@ -143,12 +178,9 @@ http://www.regulus.com.tw/
   - Support of Unique ID
 
 #### One Time Programmable memory
-● A nonvolatile memory that can be written only once
-● Security setting, authentication setting are possible
-● Support one time read function (512 bytes)
-
-
-
+- A nonvolatile memory that can be written only once
+- Security setting, authentication setting are possible
+- Support one time read function (512 bytes)
 
 #### A/D Converter (ADC)
 
