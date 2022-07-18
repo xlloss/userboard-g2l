@@ -104,6 +104,21 @@ http://www.regulus.com.tw/
   - RAW8 / 10 / 12 / 14 / 16 (without Image Processing)
   - MIPI CSI-2 V2.1 Recommended Memory storage data (without Image Processing)
 
+#### Display Interface
+
+##### LCD Controller
+- 1 channel (MIPI DSI output or Parallel output)
+- 2 planes blending (can blend 2 different size images)
+- Support Image Processing:
+  - Dither processing (RGB666)
+  - Clipping
+  - RGB Gamma Correction LUT
+- Support Input Data Format:
+  - RGB565 / RGB666 / RGB888
+  - ARGB1555 / ARGB4444 / ARGB8888
+  - YcbCr444 8-bit / YcbCr422 8-bit / YcbCr420 8-bit
+
+
 ## Maintainers
 
 ```
