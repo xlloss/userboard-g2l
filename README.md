@@ -136,11 +136,11 @@ http://www.regulus.com.tw/
 #### Peripheral Module
 
 ##### I2C Bus Interface
-● 4 channel
-● Master mode and slave mode supported
-● Support for 7-bit and 10-bit slave address formats
-● Support for multi-master operation
-● Timeout detection
+- 4 channel
+- Master mode and slave mode supported
+- Support for 7-bit and 10-bit slave address formats
+- Support for multi-master operation
+- Timeout detection
 
 ##### Serial Communication Interface with FIFO (SCIFA)
 - 4 channels
