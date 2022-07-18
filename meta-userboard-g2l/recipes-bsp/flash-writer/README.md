@@ -49,7 +49,7 @@ As the picture displayed above, the QSPI flash writer helper can easily help pro
 - Press the Reset button, and wait for the 'all succeeded. ' message from the `qspiFlash-writer-helper` . 
 - Switch to the QSPI Boot mode, and press the Reset button. 
 
-The programmed BL2 and u-boot shall display as the following: 
+The programmed BL2 and u-boot should display as the following: 
 
 ```bash
 => NOTICE:  BL2: v2.6(release):aed378638-dirty
