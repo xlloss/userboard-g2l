@@ -17,6 +17,9 @@ FAX : (02) 8753-3589
 E-mail : sales@regulus.com.tw
 http://www.regulus.com.tw/
 ```
+### Board Information
+
+<img src="https://renesas.info/w/images/3/3d/smarc_series_carrier_board.png" width="800" />
 
 ## Maintainers
 
