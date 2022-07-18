@@ -118,6 +118,20 @@ http://www.regulus.com.tw/
   - ARGB1555 / ARGB4444 / ARGB8888
   - YcbCr444 8-bit / YcbCr422 8-bit / YcbCr420 8-bit
 
+##### MIPI DSI Interface
+- 1 channel
+- The number of Lane: 4-lane
+- Support up to Full HD (1920 × 1080), 60 fps (RGB888)
+- Maximum Bandwidth: 1.5 Gbps per lane
+- Support Output Data Format:
+  - RGB666 / RGB888
+
+##### Parallel Output Interface
+- 1 channel
+- Support WXGA (1280 × 800), 60 fps
+- Support Output Data Format:
+  - RGB666 / RGB888
+- CLK / HD / VD timing signal supported
 
 ## Maintainers
 
