@@ -19,8 +19,6 @@ http://www.regulus.com.tw/
 ```
 ### Board Information
 
-<img src="https://renesas.info/w/images/3/3d/smarc_series_carrier_board.png" width="900" />
-
 ![image](https://user-images.githubusercontent.com/33512027/179498461-ecac9805-ca04-49cb-9f19-c9998c0fd96d.png)
 
 #### ARM Cores
@@ -280,6 +278,72 @@ http://www.regulus.com.tw/
   - Software trigger
   - Asynchronous trigger: External trigger supported
   - Synchronous trigger: MTU and PWM timer
+
+#### Timer
+
+##### Multi-function Timer Pulse Unit 3 (MTU3a)
+- 9 channels (16 bits × 8 channels, 32 bits × 1 channel)
+- Module clock frequency (P0ϕ): 100 MHz
+- Maximum 28 lines of pulse inputs/outputs and 3 lines of pulse inputs
+- 14 types of count clocks selectable
+- Input capture function
+- 39 outputs compare and input capture registers
+- Counter clear operation (Simultaneous counter clearing by Compare match or Input capture is available)
+- Simultaneous writing to multiple timer counters (TCNT)
+- Synchronous input/output of each register due to synchronous operation of the counter
+- Buffered operation
+- Cascade-connected operation
+- 43 types of interrupt sources
+- Automatic transfer of register data
+- Pulse output modes
+  - Toggle, PWM, complementary PWM, and reset-synchronized PWM modes
+- Synchronization of multiple counters
+- Phase counting mode
+  - 16-bit mode (channel 1 and 2)
+  - 32-bit mode (channel 1 and 2)
+- Counter function of dead time compensation
+- Digital filter functions for the input capture and external count clock pin
+
+##### Port Output Enable 3 (POE3)
+- Control of the high-impedance state of the MTU3a waveform output pins
+- Activation with four input pins
+- Activation on detection of short-circuited outputs (detection of simultaneous PWM output to the active level)
+- Activation by register write
+- Additional programming of output control target pins is possible.
+
+##### General PWM Timer (GPT)
+- 32 bits × 8 channels
+- Counting up or down (sawtooth wave), counting up and down (triangular wave) selectable for all channels
+- Independent selectable for each channel
+- 2 input/output pins per channel
+- 2 output compare / input capture registers per channel
+- For the 2 output compare / input capture registers of each channel, 4 registers are provided as buffer registers and are capable of operating as comparison registers when buffering is not in use
+- In output compare operation, buffer switching can be at peaks or troughs, enabling the generation of laterally asymmetrically PWM waveforms
+- Registers for setting up frame intervals on each channel (with capability for generating interrupts on overflow or underflow)
+- Generation of dead times in PWM operation
+- Synchronous start / stop / clear of counters on arbitrary channels
+- Starting, stopping, and clearing up/down counters in response to a maximum of eight events
+- Starting, stopping, and clearing up/down counters in response to input level comparison
+- Starting, stopping, and clearing up/down counters in response to a maximum of four external triggers
+- Output pin invalidation functions due to dead time error or detection of short circuit between output pins
+- Digital filter functions for the input capture and external trigger pins
+
+##### Port Output Enable for GPT (POEG)
+- Output prohibition control of the GPT waveform output pin
+- Activation with up to four input pins
+- Activation by dead time error detection or output short detection
+- Activation by register write
+
+##### Watchdog Timer (WDT)
+- 3 channels
+- A counter overflow can reset the LSI
+- CPU parity error can reset the LSI
+
+##### General Timer (GTM)
+- 32 bits × 3 channels
+- Two operating modes
+  - Interval timer mode
+  - Free-running comparison mode
 
 ## Maintainers
 
