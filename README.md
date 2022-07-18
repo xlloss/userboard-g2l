@@ -54,7 +54,35 @@ Image Scaling Unit (ISU)
 - Support Color format Conversion
 - RGB / ARGB / YcbCr422 / YcbCr420 / RAW (Grayscale)
 
+#### Camera Interfaces
 
+MIPI CSI-2 Interface
+- 1 channel
+- The number of Lane: 1-/2-/4-lane
+- Support 5MP, 30 fps (RAW12)
+- Maximum Bandwidth: 1.5 Gbps per lane
+- Select 1 VC from 4 VC (virtual channel) supported
+- Support Input Image Data Formats:
+  - YUV420 8-bit / 10-bit
+  - Legacy YUV420 8-bit
+  - YUV420 8-bit / 10-bit (Chroma Shifted Pixel Sampling)
+  - YUV422 8-bit / 10-bit
+  - RGB444 / RGB555 / RGB565/ RGB666 / RGB888
+  - RAW6 / RAW7 / RAW8 / RAW10 / RAW12 / RAW14 / RAW16 / RAW20
+- Generic short packet code 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8
+- Generic long packet data type 1 / 2 / 3 / 4
+- User Defined 8-bit data type 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8
+
+Parallel Input Interface
+- 1 channel
+- Support ITU-R BT.656 Interface (Interlace supported, YcbCr422 8-bit / 10-bit)
+- Support HD
+  - 30 fps (YCbCr422 Interleave), 60 fps (YCbCr422 Y/CbCr separate data, binary data)
+  - Maximum input pixel frequency: 108 MHz
+- Support Input Data Format:
+  - YcbCr422 8-bit / 10-bit
+  - Binary data 16-bit
+- VSYNC / HSYNC / FIELD timing signal supported
 
 ## Maintainers
 
