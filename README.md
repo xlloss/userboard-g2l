@@ -172,6 +172,28 @@ http://www.regulus.com.tw/
   - RGB666 / RGB888
 - CLK / HD / VD timing signal supported
 
+#### Sound
+
+##### Serial Sound Interface (SSI)
+- 4 channels bidirectional serial transfer
+- 2 external clock sources available
+- Full Duplex communication (channel 0, 1, and 3)
+- Support of I2S / Monaural / TDM audio formats
+- Support of master and slave functions
+- Generation of programmable word clock and bit clock
+- Multi-channel formats
+- Support of 8, 16, 18, 20, 22, 24, and 32-bit data formats
+- Support of 32-stage FIFO for transmission and reception
+- Support of LR-clock continue function in which the LR-clock signal is not stopped
+
+##### Sampling Rate Converter (SRC)
+- 1 channel
+- Data format: 16-bit (stereo / monaural)
+- Sampling Rate
+  - Input: Selectable from 8 kHz, 11.025 kHz, 12 kHz, 16 kHz, 22.05 kHz, 24 kHz, 32 kHz,44.1 kHz, 48 kHz
+  - Output: Selectable from 8 kHz*, 16 kHz, 32 kHz, 44.1 kHz, 48 kHz
+- SNR: More than or equal to 80 db
+
 #### Peripheral Module
 
 ##### I2C Bus Interface
