@@ -6,13 +6,13 @@ As the video displayed above, the `mkfs-helper` will help fdisk, format the QSPI
 
 ### 1. Prepare the exported rootfs
 
-#### 1.1 Edit the `/etc/exports` . 
+#### 1.1 Edit the `/etc/exports`
 
 ```bash
 /work/userboard-g2l/rootfs                   *(rw,sync,no_root_squash,no_subtree_check)
 ```
 
-#### 1.2 Restart the nfs-kernel-server service. 
+#### 1.2 Restart the nfs-kernel-server service
 
 ```
 sudo /etc/init.d/nfs-kernel-server restart
@@ -20,7 +20,7 @@ sudo /etc/init.d/nfs-kernel-server restart
 
 ### 2. NFS boot
 
-##### 2.1 Reset the RZ/G2L and enter the u-boot for the following settings with debug-serial console (for example: Tera Term) .
+##### 2.1 Reset the RZ/G2L and enter the u-boot for the following settings with debug-serial console (for example: Tera Term)
 
 ```bash
  => setenv bootargs rw rootwait earlycon root=/dev/mmcblk0p2
