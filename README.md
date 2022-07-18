@@ -19,7 +19,9 @@ http://www.regulus.com.tw/
 ```
 ### Board Information
 
-<img src="https://renesas.info/w/images/3/3d/smarc_series_carrier_board.png" width="800" />
+<img src="https://renesas.info/w/images/3/3d/smarc_series_carrier_board.png" width="900" />
+
+![image](https://user-images.githubusercontent.com/33512027/179498461-ecac9805-ca04-49cb-9f19-c9998c0fd96d.png)
 
 ## Maintainers
 
