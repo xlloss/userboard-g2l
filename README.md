@@ -25,7 +25,7 @@ http://www.regulus.com.tw/
 
 #### ARM Cores
 
-Arm Cortex-A55 Dual / Single MPCore 1.2 GHz
+##### Arm Cortex-A55 Dual / Single MPCore 1.2 GHz
 - L1 I-cache 32 Kbytes (Parity) / D-cache 32 Kbytes (ECC)
 - L2 cache 0 Kbyte
 - L3 cache 256 Kbytes (ECC)
@@ -33,21 +33,21 @@ Arm Cortex-A55 Dual / Single MPCore 1.2 GHz
 - Cryptographic Extension supported
 - Arm® v8.2-A architecture
 
-System CPU Cortex-M33
+##### System CPU Cortex-M33
 - Arm Cortex-M33 Processor 200 MHz
 - Security Extension supported
 - Arm® v8-M architecture
 
 #### Graphics Unit
 
-3D Graphics Engine (3DGE)
+##### 3D Graphics Engine (3DGE)
 - Arm Mali-G31
 - One single-pixel shader core
 - 8 Kbytes L2 Cache
 - OpenGL ES1.1 / 2.0 / 3.0 / 3.1 and 3.2 Supported
 - OpenCL 2.0 Full Profile Supported
 
-Image Scaling Unit (ISU)
+##### Image Scaling Unit (ISU)
 - Scaling down function with bilinear interpolation
 - Input image Size (max): 5M (2800 × 2047)
 - Output image Size (max): Full HD (1920 × 1080)
@@ -56,7 +56,7 @@ Image Scaling Unit (ISU)
 
 #### Camera Interfaces
 
-MIPI CSI-2 Interface
+##### MIPI CSI-2 Interface
 - 1 channel
 - The number of Lane: 1-/2-/4-lane
 - Support 5MP, 30 fps (RAW12)
@@ -73,7 +73,7 @@ MIPI CSI-2 Interface
 - Generic long packet data type 1 / 2 / 3 / 4
 - User Defined 8-bit data type 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8
 
-Parallel Input Interface
+##### Parallel Input Interface
 - 1 channel
 - Support ITU-R BT.656 Interface (Interlace supported, YcbCr422 8-bit / 10-bit)
 - Support HD
@@ -83,6 +83,26 @@ Parallel Input Interface
   - YcbCr422 8-bit / 10-bit
   - Binary data 16-bit
 - VSYNC / HSYNC / FIELD timing signal supported
+
+##### MIPI CSI-2 / Parallel to AXI Bridge Module
+- 1 channel (MIPI CSI-2 Input or Parallel Input)
+- Support Image Processing:
+  - Clipping
+  - Frame Sampling
+  - LUT
+  - Color format conversion
+  - Color space conversion
+- Support Color Formats for Image Processing:
+  - YUV422 8-/10-bit
+  - RGB565 / RGB666 / RGB888
+  - RAW8 / 10 / 12 / 14 / 16 (Clipping and Frame Sampling only)
+- Support Output Data Formats:
+  - YCbCr422 8-bit (Interleave/Semi planar, Interlace/Progressive)
+  - YCbCr420 8-bit (Interleave, Interlace)
+  - Y-Only
+  - RGB888 / ARGB8888
+  - RAW8 / 10 / 12 / 14 / 16 (without Image Processing)
+  - MIPI CSI-2 V2.1 Recommended Memory storage data (without Image Processing)
 
 ## Maintainers
 
