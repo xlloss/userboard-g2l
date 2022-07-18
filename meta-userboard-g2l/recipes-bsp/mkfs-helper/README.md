@@ -21,6 +21,7 @@ Reset the Starter Kit and enter the u-boot for the following settings with debug
 ```bash
  => setenv bootargs rw rootwait earlycon root=/dev/mmcblk0p2
  => setenv bootcmd 'fatload mmc 0:1 0x48000000 r9a07g044l2-smarc.dtb; booti 0x48080000 - 0x48000000'
+ => 
  => setenv ethaddr 2E:09:0A:00:BE:11
  => setenv ipaddr 192.168.1.133; setenv serverip 192.168.1.169; setenv NFSROOT ${serverip}:/work/userboard-vlp/rootfs
  => setenv bootnfs 'nfs 0x48080000 ${NFSROOT}/boot/Image; \
