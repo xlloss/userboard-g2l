@@ -50,6 +50,33 @@ http://www.regulus.com.tw/
 - Memory Size: Up to 4 Gbyes
 - Auto Refresh supported
 
+##### SPI Multi I/O Bus Controller
+- 1 channel (8-bit Double data rate)
+- Up to 2 serial flash memories with multiple I/O bus sizes (single / quad) can be connected
+- Connectable with 1 Octal-SPI flash memory
+- Connectable with 1 HyperFlash memory
+- External address space read mode (built-in read cache)
+- SPI operation mode
+- Maximum Clock Frequency:
+  - 50 MHz (Quad-SPI DDR)
+  - 66 MHz (Quad-SPI SDR)
+  - 100 MHz (Octal-SPI, HyperFlash)
+
+##### SD Card Host Interface / Multimedia Card Interface (SD/MMC)
+- 2 channels
+- Channel 0 supports SDHI / e-MMC (boot supported)
+- Channel 1 supports SDHI
+- SD memory I/O card interface (1-bit / 4-bit SD bus)
+- SD, SDHC and SDXC SD memory card access supported
+- Compliant with SD 3.0
+- Default, high-speed, UHS-I/SDR50, SDR104 transfer modes supported
+- Error check function: CRC7 (Command/response), CRC16 (Data)
+- Card detection function, write protect supported
+- MMC interface (1-bit / 4-bit / 8-bit MMC bus)
+- e-MMC device access supported
+- Compliant with eMMC 4.51
+- High-speed, HS200 transfer modes supported
+
 #### Graphics Unit
 
 ##### 3D Graphics Engine (3DGE)
