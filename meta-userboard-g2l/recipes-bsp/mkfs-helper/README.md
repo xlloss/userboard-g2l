@@ -16,7 +16,7 @@ sudo /etc/init.d/nfs-kernel-server restart
 
 ### NFS boot
 
-Reset the Starter Kit and enter the u-boot for the following settings with debug-serial console (for example: Tera Term) .
+##### 1. Reset the RZ/G2L and enter the u-boot for the following settings with debug-serial console (for example: Tera Term) .
 
 ```bash
  => setenv bootargs rw rootwait earlycon root=/dev/mmcblk0p2
@@ -30,3 +30,16 @@ Reset the Starter Kit and enter the u-boot for the following settings with debug
       booti 0x48080000 - 0x48000000'
  => saveenv
 ```
+
+##### 2. run bootnfs
+
+![image](https://user-images.githubusercontent.com/33512027/179456557-19bd2d5d-478c-439b-8dcb-1fc6fada55cb.png)
+
+![image](https://user-images.githubusercontent.com/33512027/179456817-eaf23cc4-e119-42c4-993a-c51075c2660e.png)
+
+##### 3. run bootnfs
+
+
+
+
+
