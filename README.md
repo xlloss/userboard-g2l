@@ -211,6 +211,14 @@ http://www.regulus.com.tw/
 - Supports interface conforming to IEEE802.3 PHY RGMII (Reduced Gigabit Media Independent Interface)
 - Supports interface conforming to IEEE802.3 PHYMII (Media Independent Interface)
 
+##### CANFD Interface (RS-CANFD)
+- 2 channels
+- ISO 11898-1 (2003) compliant
+- CAN-FD ISO 11898-1 (CD2014) compliant
+- Message buffer
+  - Up to 64 × 2-channel receive message buffer: Shared among all channels
+  - 16 transmit message buffers per channel
+
 #### Peripheral Module
 
 ##### I2C Bus Interface
