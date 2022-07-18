@@ -38,6 +38,23 @@ System CPU Cortex-M33
 - Security Extension supported
 - Arm® v8-M architecture
 
+#### Graphics Unit
+
+3D Graphics Engine (3DGE)
+- Arm Mali-G31
+- One single-pixel shader core
+- 8 Kbytes L2 Cache
+- OpenGL ES1.1 / 2.0 / 3.0 / 3.1 and 3.2 Supported
+- OpenCL 2.0 Full Profile Supported
+
+Image Scaling Unit (ISU)
+- Scaling down function with bilinear interpolation
+- Input image Size (max): 5M (2800 × 2047)
+- Output image Size (max): Full HD (1920 × 1080)
+- Support Color format Conversion
+- RGB / ARGB / YcbCr422 / YcbCr420 / RAW (Grayscale)
+
+
 
 ## Maintainers
 
