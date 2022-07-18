@@ -25,3 +25,8 @@
 ### QSPI Boot mode
 
 ![image](https://user-images.githubusercontent.com/33512027/179448284-abae4818-18ca-424e-b89d-30499e988557.png)
+
+### Example of writing data for the Serial Flash boot
+
+![image](https://user-images.githubusercontent.com/33512027/179450239-b7f716cf-267b-4df6-aa55-5f1809d63d17.png)
+
