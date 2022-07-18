@@ -41,10 +41,10 @@ function print_boot_example() {
 ##########################################################
 sudo umount mnt || true
 mkdir -p mnt && sudo rm -rfv mnt/*
-if [ ! -e  Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0.zip ]; then
-	echo -e ${YELLOW}'Please download the RTK0EF0045Z0021AZJ-v3.0.0.zip from renesas.com . '${NC}
-	exit 1
-fi
+#if [ ! -e  Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0.zip ]; then
+#	echo -e ${YELLOW}'Please download the RTK0EF0045Z0021AZJ-v3.0.0.zip from renesas.com . '${NC}
+#	exit 1
+#fi
 if [ ! -e Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1.zip ]; then
 	echo -e ${YELLOW}'Please download the RTK0EF0045Z0021AZJ-v3.0.0-update1.zip from renesas.com . '${NC}
 	exit 1
@@ -77,10 +77,10 @@ echo ""
 
 ##########################################################
 cd ${SCRIP_DIR}
-echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0'${NC}
-[ ! -d Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0 ] && \
-	unzip -o Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0.zip -d Renesas_software
-[ ! -d extra -o ! -d meta-renesas -o ! -d poky -o ! -d meta-openembedded -o ! -d meta-qt5 ] && tar zxvf Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0/rzg_bsp_v3.0.0.tar.gz
+#echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0'${NC}
+#[ ! -d Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0 ] && \
+#	unzip -o Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0.zip -d Renesas_software
+#[ ! -d extra -o ! -d meta-renesas -o ! -d poky -o ! -d meta-openembedded -o ! -d meta-qt5 ] && tar zxvf Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0/rzg_bsp_v3.0.0.tar.gz
 
 echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0-update1'${NC}
 [ ! -d Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1 ] && \
@@ -147,7 +147,7 @@ echo ""
 
 ##########################################################
 echo -e ${GREEN}'>> ulimit -n 8192 '${NC}
-ulimit -n 8192
+#ulimit -n 8192
 echo ""
 echo -e ${GREEN}'>> show-layers '${NC}
 bitbake-layers show-layers
