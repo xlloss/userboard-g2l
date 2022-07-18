@@ -38,6 +38,18 @@ http://www.regulus.com.tw/
 - Security Extension supported
 - Arm® v8-M architecture
 
+#### Memory
+
+##### On-chip RAM
+- RAM of 128 Kbytes (ECC)
+
+##### External Bus Controller for DDR3L / DDR4 SDRAM
+- Support DDR3L-1333 / DDR4-1600
+- Bus Width: 16-bit
+- In line ECC supported (Support error detection interrupt)
+- Memory Size: Up to 4 Gbyes
+- Auto Refresh supported
+
 #### Graphics Unit
 
 ##### 3D Graphics Engine (3DGE)
