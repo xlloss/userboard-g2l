@@ -37,7 +37,10 @@ sudo /etc/init.d/nfs-kernel-server restart
 
 ![image](https://user-images.githubusercontent.com/33512027/179456817-eaf23cc4-e119-42c4-993a-c51075c2660e.png)
 
-##### 3. run bootnfs
+##### 3. run the `mkfs-helper`
+
+![image](https://user-images.githubusercontent.com/33512027/179457455-3537bbfc-b36a-453e-b22c-77fcc5747fe5.png)
+
 
 
 
