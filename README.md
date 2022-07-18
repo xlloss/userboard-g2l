@@ -1,6 +1,6 @@
 ## Introduction
 
-<img src="https://linuxgizmos.com/files/renesas_rzg2l_carrier.jpg" width="480" height="360" />
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/UprbrIVChYQ/0.jpg)](https://www.youtube.com/watch?v=UprbrIVChYQ)
 
 This repository is a Linux reference software for building core-image-qt on
 RZG2L core board + its carrier board. You have to get the proprietary
