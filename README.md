@@ -133,6 +133,23 @@ http://www.regulus.com.tw/
   - RGB666 / RGB888
 - CLK / HD / VD timing signal supported
 
+#### Trusted Secure IP
+- Security algorism
+  - Common key encryption: AES
+  - Non-common key encryption: RSA, ECC
+- Other features
+  - TRNG (true-random number generator)
+  - Hash value generation: SHA-1, SHA-224, SHA-256, GHASH
+  - Support of Unique ID
+
+#### One Time Programmable memory
+● A nonvolatile memory that can be written only once
+● Security setting, authentication setting are possible
+● Support one time read function (512 bytes)
+
+
+
+
 #### A/D Converter (ADC)
 
 - 8 channels
