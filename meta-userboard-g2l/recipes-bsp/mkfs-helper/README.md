@@ -1,22 +1,24 @@
 ## Introduction
 
-### Prepare the exported rootfs
+The `mkfs-helper` will help fdisk, format the QSPI flash and untar the core-image into the QSPI flash rootfs. 
 
-#### Edit the `/etc/exports` . 
+### 1. Prepare the exported rootfs
+
+#### 1.1 Edit the `/etc/exports` . 
 
 ```bash
 /work/userboard-g2l/rootfs                   *(rw,sync,no_root_squash,no_subtree_check)
 ```
 
-#### Restart the nfs-kernel-server service. 
+#### 1.2 Restart the nfs-kernel-server service. 
 
 ```
 sudo /etc/init.d/nfs-kernel-server restart
 ```
 
-### NFS boot
+### 2. NFS boot
 
-##### 1. Reset the RZ/G2L and enter the u-boot for the following settings with debug-serial console (for example: Tera Term) .
+##### 2.1 Reset the RZ/G2L and enter the u-boot for the following settings with debug-serial console (for example: Tera Term) .
 
 ```bash
  => setenv bootargs rw rootwait earlycon root=/dev/mmcblk0p2
@@ -31,15 +33,13 @@ sudo /etc/init.d/nfs-kernel-server restart
  => saveenv
 ```
 
-##### 2. run bootnfs
+##### 2.2 run bootnfs
 
 ![image](https://user-images.githubusercontent.com/33512027/179456557-19bd2d5d-478c-439b-8dcb-1fc6fada55cb.png)
 
 ![image](https://user-images.githubusercontent.com/33512027/179456817-eaf23cc4-e119-42c4-993a-c51075c2660e.png)
 
-### Mkfs-helper
-
-The `mkfs-helper` will help fdisk, format the QSPI flash and untar the core-image into the QSPI flash rootfs. 
+### 3. Run the mkfs-helper
 
 ```bash
 ./mkfs-helper
