@@ -23,6 +23,22 @@ http://www.regulus.com.tw/
 
 ![image](https://user-images.githubusercontent.com/33512027/179498461-ecac9805-ca04-49cb-9f19-c9998c0fd96d.png)
 
+#### ARM Cores
+
+Arm Cortex-A55 Dual / Single MPCore 1.2 GHz
+- L1 I-cache 32 Kbytes (Parity) / D-cache 32 Kbytes (ECC)
+- L2 cache 0 Kbyte
+- L3 cache 256 Kbytes (ECC)
+- NEON™ / FPU supported
+- Cryptographic Extension supported
+- Arm® v8.2-A architecture
+
+System CPU Cortex-M33
+- Arm Cortex-M33 Processor 200 MHz
+- Security Extension supported
+- Arm® v8-M architecture
+
+
 ## Maintainers
 
 ```
