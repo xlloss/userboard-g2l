@@ -1,4 +1,4 @@
-## Introduction
+## Introduction to the `mkfs-helper`
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/MMLUCpsnm1s/0.jpg)](https://www.youtube.com/watch?v=MMLUCpsnm1s)
 
