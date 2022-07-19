@@ -2,7 +2,7 @@
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/MMLUCpsnm1s/0.jpg)](https://www.youtube.com/watch?v=MMLUCpsnm1s)
 
-As the video displayed above, the `mkfs-helper` will help fdisk, format the QSPI flash and un-tar the core-image into the QSPI flash rootfs. 
+As the video displayed above, the `mkfs-helper` will help fdisk, format the QSPI flash and un-tar the core-image into the QSPI flash rootfs's partition. 
 
 ### 1. Prepare the exported rootfs
 
