@@ -2,7 +2,7 @@
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/MMLUCpsnm1s/0.jpg)](https://www.youtube.com/watch?v=MMLUCpsnm1s)
 
-### 1. Prepare the exported rootfs
+### 1. Prepare an exported rootfs
 
 As the video displayed above, the `mkfs-helper` will help fdisk, format the QSPI flash and un-tar the core-image into the QSPI flash rootfs's partition. First we have to prepare a NFS server. 
 
@@ -20,7 +20,7 @@ For example:
 sudo /etc/init.d/nfs-kernel-server restart
 ```
 
-### 2. NFS boot
+### 2. Boot the target board to mount the given rootfs over NFS. 
 
 <img src="https://renesas.info/w/images/3/3d/smarc_series_carrier_board.png" width="900" />
 
@@ -43,16 +43,18 @@ sudo /etc/init.d/nfs-kernel-server restart
  => saveenv
 ```
 
-#### 2.3 run bootnfs. 
+#### 2.3 Enter the u-boot and `run bootnfs`. 
 
 ![image](https://user-images.githubusercontent.com/33512027/179456557-19bd2d5d-478c-439b-8dcb-1fc6fada55cb.png)
 
 ![image](https://user-images.githubusercontent.com/33512027/179456817-eaf23cc4-e119-42c4-993a-c51075c2660e.png)
 
-### 3. Run the mkfs-helper
+Here we can see the target board rootfs is mounted over NFS. 
+
+### 3. Run the `mkfs-helper.sh`
 
 ```bash
-./mkfs-helper
+./mkfs-helper.sh
 ```
 
 ```bash
