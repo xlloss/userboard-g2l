@@ -21,7 +21,7 @@ As the picture displayed above, the QSPI flash writer helper can easily help pro
 
 ### Board Information
 
-<img src="https://renesas.info/w/images/3/3d/smarc_series_carrier_board.png" width="800" />
+<img src="https://renesas.info/w/images/3/3d/smarc_series_carrier_board.png" width="900" />
 
 #### Power supply: 
 
