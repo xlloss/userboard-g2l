@@ -26,7 +26,7 @@ sudo /etc/init.d/nfs-kernel-server restart
 
 #### 2.1 The RJ45 (Ethernet1) is connected to NFS server (Linux Host-PC) with an ethernet cable. 
 
-![image](https://user-images.githubusercontent.com/33512027/179653013-939cb544-fbb9-4eb5-84f8-f5494ac7d153.png)
+<img src=https://user-images.githubusercontent.com/33512027/179653013-939cb544-fbb9-4eb5-84f8-f5494ac7d153.png width=900 />
 
 #### 2.2 Press the reset-button and enter the u-boot for the following settings: 
 
