@@ -375,7 +375,7 @@ If you want to use GPLv3, just hide this line:
 
 ##### Disable libraries of Graphics and Video Codec
 When you want to disable the functions of the libraries of the graphics and the video codec, please add the following
-lines in build/conf/local.conf:
+lines in `build/conf/local.conf`:
 - Disable OpenGL ES library in the graphics package
 ```
 USE_RENESAS_GLES = "0"
@@ -395,7 +395,7 @@ USE_CODEC_ENC = "0"
 
 ##### Real time performance
 If you want to use the kernel which improves the real-time performance, please add the line below to the
-file ”~/rzg_vlp_v3.0.x/build/conf/local.conf”.
+file `build/conf/local.conf`.
 ```
 IS_RT_BSP = "1"
 ```
