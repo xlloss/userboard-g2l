@@ -400,6 +400,35 @@ file `build/conf/local.conf`.
 IS_RT_BSP = "1"
 ```
 
+##### LVGL Demo
+LVGL demo which is a GUI application framework for embedded devices is disabled in the default settings of VLP/G.
+The demo is under development, so don’t change the below line inside the file `build/conf/local.conf` 
+before building images. When you change the value, the build fails.
+```
+INSTALL_RZG2_DEMOS = "0"
+```
+
+##### USB Video Class
+USB Video Class (UVC) driver is not installed with the default settings of VLP/G due to its large size.
+In case UVC devices such as USB cameras are necessary, please install the driver by adding the line below to
+local.conf.
+```
+IMAGE_INSTALL_append = " kernel-module-uvcvideo "
+```
+
+##### CIP core
+CIP Core Packages are going to be maintained by the Civil Infrastructure Platform project. For more technical
+information, please contact Renesas.
+- Buster (default): The following lines are added as default in the local.conf:
+```
+CIP_CORE = "1"
+```
+- No CIP Core Packages: If the CIP Core Packages are unnecessary, comment out and add the following lines to disable CIP Core Packages in
+the local.conf:
+```
+#CIP_CORE = "1"
+```
+
 
 ## Maintainers
 
