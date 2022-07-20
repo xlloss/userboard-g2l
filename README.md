@@ -461,6 +461,22 @@ Also, below formats of video are not supported.
 - YUV444
 - H.264, 80Mbps
 
+##### Video test
+```
+gst-launch-1.0 filesrc location=/home/root/videos/renesas-bigideasforeveryspace.mp4 \
+  ! qtdemux ! h264parse ! omxh264dec ! video/x-raw,width=1280,height=720 ! waylandsink 
+```
+
+##### chromium
+- chromium Test
+```
+chromium --no-sandbox
+```
+- Youtube Test
+```
+chromium --no-sandbox https://www.youtube.com/watch?v=LbDizRI5wrA
+```
+
 ## Maintainers
 
 ```
