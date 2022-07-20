@@ -474,7 +474,7 @@ gst-launch-1.0 filesrc location=/home/root/videos/renesas-bigideasforeveryspace.
 ```
 
 ##### Web Browser
-- Chromium Test
+- Chromium
 ```
 chromium --no-sandbox
 ```
