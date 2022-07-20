@@ -345,6 +345,18 @@ http://www.regulus.com.tw/
   - Interval timer mode
   - Free-running comparison mode
 
+## Software model
+
+### Targeted
+
+RZ/G2L Evaluation Board Kit PMIC version
+- RZ/G2L SMARC Module Board v2.1
+- RZ SMARC Series Carrier Board v4.0
+
+### RZ/G Verified Linux Package (VLP/G) v3.0.0-update1
+
+
+
 ## Maintainers
 
 ```
