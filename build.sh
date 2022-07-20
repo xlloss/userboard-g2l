@@ -41,10 +41,6 @@ function print_boot_example() {
 ##########################################################
 sudo umount mnt || true
 mkdir -p mnt && sudo rm -rfv mnt/*
-#if [ ! -e  Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0.zip ]; then
-#	echo -e ${YELLOW}'Please download the RTK0EF0045Z0021AZJ-v3.0.0.zip from renesas.com . '${NC}
-#	exit 1
-#fi
 if [ ! -e Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1.zip ]; then
 	echo -e ${YELLOW}'Please download the RTK0EF0045Z0021AZJ-v3.0.0-update1.zip from renesas.com . '${NC}
 	exit 1
@@ -67,7 +63,7 @@ sudo chown -R ${USER}.${USER} Renesas_software meta-userboard-g2l build.sh
 ##########################################################
 sudo apt-get install -y gawk wget git-core diffstat unzip texinfo gcc-multilib \
 	build-essential chrpath socat libsdl1.2-dev xterm python-crypto cpio python python3 \
-	python3-pip python3-pexpect xz-utils debianutils iputils-ping libssl-dev nfs-kernel-server
+	python3-pip python3-pexpect xz-utils debianutils iputils-ping libssl-dev nfs-kernel-server parted
 echo ""
 
 ##########################################################
@@ -77,11 +73,6 @@ echo ""
 
 ##########################################################
 cd ${SCRIP_DIR}
-#echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0'${NC}
-#[ ! -d Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0 ] && \
-#	unzip -o Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0.zip -d Renesas_software
-#[ ! -d extra -o ! -d meta-renesas -o ! -d poky -o ! -d meta-openembedded -o ! -d meta-qt5 ] && tar zxvf Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0/rzg_bsp_v3.0.0.tar.gz
-
 echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0-update1'${NC}
 [ ! -d Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1 ] && \
 	unzip -o Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1.zip -d Renesas_software
@@ -113,6 +104,11 @@ git -C meta-browser checkout -b develop dcfb4cedc238eee8ed9bd6595bdcacf91c562f67
 
 ##########################################################
 cd ${SCRIP_DIR}
+echo -e ${GREEN}'>> v300-to-v300update1.patch, v300update1-to-v300update1_cip3.patch'${NC}
+if [ ! -e meta-renesas/docs/template/conf/smarc-rzv2l/local.conf ]; then
+	patch -p1 -l -f --fuzz 3 -i Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1/v300-to-v300update1.patch
+	patch -p1 -l -f --fuzz 3 -i extra/v300update1-to-v300update1_cip3.patch
+fi
 echo -e ${GREEN}'>> 0001-Add-HDMI-support-for-RZ-G2.patch'${NC}
 if [ ! -e meta-renesas/recipes-rzg2h/recipes-kernel/linux/linux-renesas/hdmi_patches/0001-drm-rcar-du-Fix-PHY-configure-registers.patch ]; then
 	patch -p1 -l -f --fuzz 3 -d meta-renesas -i ../extra/0001-Add-HDMI-support-for-RZ-G2.patch
@@ -146,11 +142,9 @@ fi
 echo ""
 
 ##########################################################
-echo -e ${GREEN}'>> ulimit -n 8192 '${NC}
-#ulimit -n 8192
-echo ""
 echo -e ${GREEN}'>> show-layers '${NC}
 bitbake-layers show-layers
+echo ""
 echo -e ${GREEN}'>> core-image '${NC}
 cd ${SCRIP_DIR}/build
 bitbake ${CORE_IMAGE} -v
