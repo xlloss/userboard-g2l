@@ -347,13 +347,13 @@ http://www.regulus.com.tw/
 
 ## Software model
 
-### Target board
+#### Target board
 
 RZ/G2L Evaluation Board Kit PMIC version
 - RZ/G2L SMARC Module Board v2.1
 - RZ SMARC Series Carrier Board v4.0
 
-### VLP/G version
+#### VLP/G version
 
 | Name                                  | File                                     | Description                                                                   |
 | :------------------------------------ | :--------------------------------------- | :---------------------------------------------------------------------------- |
