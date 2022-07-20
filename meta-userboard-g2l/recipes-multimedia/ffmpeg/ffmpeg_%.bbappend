@@ -4,6 +4,8 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 DEPENDS += " \
 	mali-library \
 	omx-user-module \
+	libsdl2 \
+	libsdl2-image libsdl2-mixer libsdl2-net \
 "
 
 EXTRA_OEMAKE_append = " V=1"
