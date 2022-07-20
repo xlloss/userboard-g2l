@@ -17,7 +17,7 @@ FAX : (02) 8753-3589
 E-mail : sales@regulus.com.tw
 http://www.regulus.com.tw/
 ```
-### Board Information
+## Board Information
 
 ![image](https://user-images.githubusercontent.com/33512027/179498461-ecac9805-ca04-49cb-9f19-c9998c0fd96d.png)
 
