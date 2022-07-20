@@ -467,8 +467,8 @@ gst-launch-1.0 filesrc location=/home/root/videos/renesas-bigideasforeveryspace.
   ! qtdemux ! h264parse ! omxh264dec ! video/x-raw,width=1280,height=720 ! waylandsink 
 ```
 
-##### chromium
-- chromium Test
+##### Web Browser
+- Chromium Test
 ```
 chromium --no-sandbox
 ```
