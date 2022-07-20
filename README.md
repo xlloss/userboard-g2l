@@ -361,6 +361,46 @@ RZ/G2L Evaluation Board Kit PMIC version
 | RZ MPU Video Codec Library v0.58      | RTK0EF0045Z15001ZJ-v0.58_EN.zip          | RZ MPU Video Codec Library for RZ/G2L.                                        |
 | VLP/G v3.0.0-update1                  | RTK0EF0045Z0021AZJ-v3.0.0-update1.zip    | RZ/G Verified Linux Package                                                   |
 
+#### Notes
+
+##### GPLv3 packages
+In this release, the GPLv3 packages are disabled as default in build/conf/local.conf:
+```
+INCOMPATIBLE_LICENSE = "GPLv3 GPLv3+"
+```
+If you want to use GPLv3, just hide this line:
+```
+#INCOMPATIBLE_LICENSE = "GPLv3 GPLv3+"
+```
+
+##### Disable libraries of Graphics and Video Codec
+When you want to disable the functions of the libraries of the graphics and the video codec, please add the following
+lines in build/conf/local.conf:
+- Disable OpenGL ES library in the graphics package
+```
+USE_RENESAS_GLES = "0"
+```
+- Disable OpenCL library in the graphics package
+```
+USE_RENESAS_OPENCL = "0"
+```
+- Disable OpenMAX library for decode in the video codec package
+```
+USE_CODEC_DEC = "0"
+```
+- Disable OpenMAX library for encode in the video codec package
+```
+USE_CODEC_ENC = "0"
+```
+
+##### Real time performance
+If you want to use the kernel which improves the real-time performance, please add the line below to the
+file ”~/rzg_vlp_v3.0.x/build/conf/local.conf”.
+```
+IS_RT_BSP = "1"
+```
+
+
 ## Maintainers
 
 ```
