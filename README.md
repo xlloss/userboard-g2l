@@ -453,18 +453,24 @@ ECC_MODE = "Full"
 ```
 
 ##### Video playback
-Due to the specification of open source software (GStreamer and others) and drivers, multiple GStreamer pipelines with hardware scale cannot run.
+- Due to the specification of open source software (GStreamer and others) and drivers, multiple GStreamer pipelines with hardware scale cannot run. 
 Also, below formats of video are not supported.
-- NV61
-- YUV420
-- YUV422
-- YUV444
-- H.264, 80Mbps
-
-##### Video test
+```
+NV61
+YUV420
+YUV422
+YUV444
+H.264, 80Mbps
+```
+- Test
 ```
 gst-launch-1.0 filesrc location=/home/root/videos/renesas-bigideasforeveryspace.mp4 \
   ! qtdemux ! h264parse ! omxh264dec ! video/x-raw,width=1280,height=720 ! waylandsink 
+```
+
+##### QT5 test
+```
+/usr/share/cinematicexperience-1.0/Qt5_CinematicExperience --fullscreen
 ```
 
 ##### Web Browser
