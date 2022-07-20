@@ -453,15 +453,12 @@ ECC_MODE = "Full"
 ```
 
 ##### Video playback
-- Due to the specification of open source software (GStreamer and others) and drivers, multiple GStreamer pipelines with hardware scale cannot run. 
-Also, below formats of video are not supported.
-```
-NV61
-YUV420
-YUV422
-YUV444
-H.264, 80Mbps
-```
+- Due to the specification of open source software (GStreamer and others) and drivers, multiple GStreamer pipelines with hardware scale cannot run. Also, below formats of video are not supported.
+  - NV61
+  - YUV420
+  - YUV422
+  - YUV444
+  - H.264, 80Mbps
 - Test
 ```
 gst-launch-1.0 filesrc location=/home/root/videos/renesas-bigideasforeveryspace.mp4 \
