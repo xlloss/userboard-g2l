@@ -67,11 +67,6 @@ sudo apt-get install -y gawk wget git-core diffstat unzip texinfo gcc-multilib \
 echo ""
 
 ##########################################################
-#rm -rfv downloads  extra  meta-browser  meta-clang  meta-gplv2  meta-openembedded  meta-qt5  meta-renesas  meta-rust  meta-rz-features
-#rm -rfv meta-virtualization  meta-python2 mnt  poky
-#rm -rfv Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1 Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0 Renesas_software/RTK0EF0045Z13001ZJ-v1.2_EN Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN Renesas_software/RTK0EF0045Z40001ZJ_v3.0.0
-
-##########################################################
 cd ${SCRIP_DIR}
 echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0-update1'${NC}
 [ ! -d Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1 ] && \
@@ -112,14 +107,6 @@ fi
 echo -e ${GREEN}'>> 0001-Add-HDMI-support-for-RZ-G2.patch'${NC}
 if [ ! -e meta-renesas/recipes-rzg2h/recipes-kernel/linux/linux-renesas/hdmi_patches/0001-drm-rcar-du-Fix-PHY-configure-registers.patch ]; then
 	patch -p1 -l -f --fuzz 3 -d meta-renesas -i ../extra/0001-Add-HDMI-support-for-RZ-G2.patch
-fi
-echo -e ${GREEN}'>> 0002-trusted-firmware-a-add-rd-wr-64-bit-reg-workaround.patch'${NC}
-if [ ! -e meta-renesas/recipes-common/recipes-bsp/trusted-firmware-a/files/0001-rzg2l-workaround-for-rd-wr-GIC-64-bit-reg.patch ]; then
-	patch -p1 -l -f --fuzz 3 -d meta-renesas -i ../extra/0002-trusted-firmware-a-add-rd-wr-64-bit-reg-workaround.patch
-fi
-echo -e ${GREEN}'>> 0003-recipes-rzg2l-linux-renesas-add-WA-GIC-access-64bit.patch'${NC}
-if [ ! -e meta-renesas/recipes-rzg2l/recipes-kernel/linux/linux-renesas/0001-arm64-arch_gicv3-Workaround-GIC-access-64bit-issue.patch ]; then
-	patch -p1 -l -f --fuzz 3 -d meta-renesas -i ../extra/0003-recipes-rzg2l-linux-renesas-add-WA-GIC-access-64bit.patch
 fi
 echo ""
 
