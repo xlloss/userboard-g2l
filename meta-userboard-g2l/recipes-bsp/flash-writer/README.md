@@ -52,14 +52,10 @@ The programmed BL2 and u-boot should display as the following:
 
 ```bash
 => NOTICE:  BL2: v2.6(release):aed378638-dirty
-NOTICE:  BL2: Built : 09:02:36, Mar 25 2022
 NOTICE:  BL2: Booting BL31
 NOTICE:  BL31: v2.6(release):aed378638-dirty
-NOTICE:  BL31: Built : 09:02:36, Mar 25 2022
-
 
 U-Boot 2021.10 (Mar 31 2022 - 03:57:20 +0000)
-
 CPU:   Renesas Electronics K rev 16.15
 Model: smarc-rzg2l
 DRAM:  1.9 GiB
