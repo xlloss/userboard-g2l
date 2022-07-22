@@ -54,8 +54,6 @@ if [ ! -e Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN.zip ]; then
 fi
 
 ##########################################################
-TFTPBOOT=/var/lib/tftpboot
-[ -d ${TFTPBOOT} ] && sudo chmod 777 ${TFTPBOOT} && sudo chown -R ${USER}.${USER} ${TFTPBOOT}
 SCRIP_DIR=$(pwd)
 sudo chown -R ${USER}.${USER} Renesas_software meta-userboard-g2l build.sh
 
@@ -87,15 +85,19 @@ echo -e ${GREEN}'>> RZ MPU Video Codec Library Evaluation Version V0.58 for RZ/G
 
 ##########################################################
 cd ${SCRIP_DIR}
-echo -e ${GREEN}'>> meta-python2 '${NC}
-git clone git://git.openembedded.org/meta-python2 || true
-git -C meta-python2 checkout -b develop 07dca1e54f82a06939df9b890c6d1ce1e3197f75 || true
-echo -e ${GREEN}'>> meta-clang '${NC}
-git clone https://github.com/kraj/meta-clang || true
-git -C meta-clang checkout -b develop e63d6f9abba5348e2183089d6ef5ea384d7ae8d8 || true
-echo -e ${GREEN}'>> meta-browser '${NC}
-git clone https://github.com/OSSystems/meta-browser || true
-git -C meta-browser checkout -b develop dcfb4cedc238eee8ed9bd6595bdcacf91c562f67 || true
+if [ 1 -eq ${USE_BROWSER} ]; then
+	echo -e ${GREEN}'>> meta-python2 '${NC}
+	git clone git://git.openembedded.org/meta-python2 || true
+	git -C meta-python2 checkout -b develop 07dca1e54f82a06939df9b890c6d1ce1e3197f75 || true
+	echo -e ${GREEN}'>> meta-clang '${NC}
+	git clone https://github.com/kraj/meta-clang || true
+	git -C meta-clang checkout -b develop e63d6f9abba5348e2183089d6ef5ea384d7ae8d8 || true
+	echo -e ${GREEN}'>> meta-browser '${NC}
+	git clone https://github.com/OSSystems/meta-browser || true
+	git -C meta-browser checkout -b develop dcfb4cedc238eee8ed9bd6595bdcacf91c562f67 || true
+else
+	rm -rfv meta-python2 meta-clang meta-browser
+fi
 
 ##########################################################
 cd ${SCRIP_DIR}
@@ -119,11 +121,7 @@ echo ""
 ##########################################################
 cd ${SCRIP_DIR}/build
 echo -e ${GREEN}'>> local.conf bblayers.conf '${NC}
-if [ 1 -eq ${USE_BROWSER} ]; then
-	/bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${MACHINE}/local-chromium.conf ./conf/local.conf
-else
-	/bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${MACHINE}/local.conf ./conf/local.conf
-fi
+/bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${MACHINE}/local.conf ./conf/local.conf
 /bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${MACHINE}/bblayers.conf ./conf/bblayers.conf
 /bin/cp -Rpfv ../meta-userboard-g2l/conf/machine/${MACHINE}.conf ../meta-renesas/conf/machine
 echo ""
