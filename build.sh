@@ -55,7 +55,7 @@ fi
 
 ##########################################################
 SCRIP_DIR=$(pwd)
-sudo chown -R ${USER}.${USER} Renesas_software meta-userboard-g2l build.sh
+sudo chown -R ${USER}.${USER} Renesas_software meta-userboard* build.sh
 
 ##########################################################
 sudo apt-get install -y gawk wget git-core diffstat unzip texinfo gcc-multilib \
