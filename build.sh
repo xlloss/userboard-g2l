@@ -8,7 +8,8 @@ NC='\033[0m' # No Color
 IP_ADDR=$(ip address | grep 192.168 | head -1 | awk '{print $2}' | awk -F '/' '{print $1}')
 
 CORE_IMAGE=core-image-qt
-MACHINE=smarc-rzg2l
+#MACHINE=smarc-rzg2l
+MACHINE=rzg2l-regulus
 SOC_FAMILY=r9a07g044l
 SOC_FAMILY_PLUS=${SOC_FAMILY}2
 

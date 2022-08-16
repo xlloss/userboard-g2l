@@ -21,3 +21,60 @@ IMAGE_INSTALL_append = " \
 IMAGE_INSTALL_append = " \
 	${@oe.utils.conditional("BROWSER_LAYER", "True", "chromium-ozone-wayland", "", d)} \
 "
+
+update_issues () {
+    # Set BSP version
+    BSP_VERSION="3.0.0-update1"
+
+    # Set SoC and Board info
+    case "${MACHINE}" in
+    rzg2l-regulus)
+      BSP_SOC="RZG2L"
+      BSP_BOARD="RZG2L-REGULUS"
+      ;;
+    smarc-rzg2l)
+      BSP_SOC="RZG2L"
+      BSP_BOARD="RZG2L-SMARC-EVK"
+      ;;
+    smarc-rzg2lc)
+      BSP_SOC="RZG2LC"
+      BSP_BOARD="RZG2LC-SMARC-EVK"
+      ;;
+    smarc-rzg2ul)
+      BSP_SOC="RZG2UL"
+      BSP_BOARD="RZG2UL-SMARC-EVK"
+      ;;
+    smarc-rzv2l)
+      BSP_SOC="RZV2L"
+      BSP_BOARD="RZV2L-SMARC-EVK"
+      ;;
+    rzv2l-dev)
+      BSP_SOC="RZV2L"
+      BSP_BOARD="RZV2L-DEV"
+      ;;
+    hihope-rzg2h)
+      BSP_SOC="RZG2H"
+      BSP_BOARD="HIHOPE-RZG2H"
+      ;;
+    hihope-rzg2m)
+      BSP_SOC="RZG2M"
+      BSP_BOARD="HIHOPE-RZG2M"
+      ;;
+    hihope-rzg2n)
+      BSP_SOC="RZG2N"
+      BSP_BOARD="HIHOPE-RZG2N"
+      ;;
+    ek874)
+      BSP_SOC="RZG2E"
+      BSP_BOARD="EK874"
+      ;;
+
+    esac
+
+    # Make issue file
+    echo "BSP: ${BSP_SOC}/${BSP_BOARD}/${BSP_VERSION}" >> ${IMAGE_ROOTFS}/etc/issue
+    echo "LSI: ${BSP_SOC}" >> ${IMAGE_ROOTFS}/etc/issue
+    echo "Version: ${BSP_VERSION}" >> ${IMAGE_ROOTFS}/etc/issue
+}
+ROOTFS_POSTPROCESS_COMMAND_remove = "update_issue; "
+ROOTFS_POSTPROCESS_COMMAND += " update_issues; "

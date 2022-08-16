@@ -4,7 +4,7 @@ SRC_URI_append = " \
 	file://nfsd.cfg \
 "
 
-COMPATIBLE_MACHINE_rzg2l = "(smarc-rzg2l|smarc-rzg2lc|smarc-rzg2ul|rzg2l-reg|smarc-rzv2l|rzv2l-dev)"
+COMPATIBLE_MACHINE_rzg2l = "(smarc-rzg2l|smarc-rzg2lc|smarc-rzg2ul|rzg2l-regulus|smarc-rzv2l|rzv2l-dev)"
 
 PARALLEL_MAKE = "-j 8"
 
