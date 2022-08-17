@@ -17,10 +17,3 @@
 	compatible = "renesas,smarc-evk", "renesas,r9a07g044l2", "renesas,r9a07g044";
 };
 
-&display {
-        status = "okay";
-};
-
-&dsi {
-        status = "okay";
-};
