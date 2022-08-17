@@ -50,8 +50,9 @@ FILENAME_ADD = _RZG2L_REGULUS
 DEVICE   = RZG2L
 DDR_TYPE = DDR4
 DDR_SIZE = 1GB_1PCS
-SWIZZLE  = T3BCUD
-DEVICE_TYPE = 1
+#SWIZZLE  = T3BCUD
+SWIZZLE  = T1BC
+#DEVICE_TYPE = 1
 else ifeq ("$(BOARD)", "RZG2LC_SMARC")
 #--------------------------------------
 # RZ/G2LC Smarc board
