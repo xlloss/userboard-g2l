@@ -1,6 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 SRC_URI_append = " \
+	file://panel.cfg \
 	file://nfsd.cfg \
 	file://dts/r9a07g044l2-regulus.dts \
 	file://dts/rzg2l-regulus.dtsi \
