@@ -18,12 +18,12 @@
 	model = "Renesas SMARC EVK based on r9a07g044l2";
 	compatible = "renesas,smarc-evk", "renesas,r9a07g044l2", "renesas,r9a07g044";
 
-        rgb_backlight: rgb-backlight {
-                compatible = "pwm-backlight";
-                pwms = <&rgb_pwm 0 50000>;
-                brightness-levels = <0 2 8 16 32 64 128 255>;
-                default-brightness-level = <6>;
-        };
+	rgb_backlight: rgb-backlight {
+		compatible = "pwm-backlight";
+		pwms = <&rgb_pwm 0 50000>;
+		brightness-levels = <0 2 8 16 32 64 128 255>;
+		default-brightness-level = <6>;
+	};
 	rgb_pwm: rgb-pwm {
 		pinmux = <RZG2L_PORT_PINMUX(48, 2, 4)>;
 	};

@@ -18,8 +18,15 @@ IMAGE_INSTALL_append = " \
 	mkfs-helper \
 "
 
+#IMAGE_INSTALL_append = " \
+#	${@oe.utils.conditional("BROWSER_LAYER", "True", \
+#	"chromium-ozone-wayland"i \
+#	, "", d)} \
+#"
 IMAGE_INSTALL_append = " \
-	${@oe.utils.conditional("BROWSER_LAYER", "True", "chromium-ozone-wayland", "", d)} \
+	${@oe.utils.conditional("CHROMIUM", "1", " \
+        chromium-ozone-wayland \
+        ", "", d)} \
 "
 
 update_issues () {

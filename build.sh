@@ -13,8 +13,6 @@ MACHINE=rzg2l-regulus
 SOC_FAMILY=r9a07g044l
 SOC_FAMILY_PLUS=${SOC_FAMILY}2
 
-USE_BROWSER=1
-
 ##########################################################
 function print_boot_example() {
 	echo ""
@@ -86,19 +84,15 @@ echo -e ${GREEN}'>> RZ MPU Video Codec Library Evaluation Version V0.58 for RZ/G
 
 ##########################################################
 cd ${SCRIP_DIR}
-if [ 1 -eq ${USE_BROWSER} ]; then
-	echo -e ${GREEN}'>> meta-python2 '${NC}
-	git clone git://git.openembedded.org/meta-python2 || true
-	git -C meta-python2 checkout -b develop 07dca1e54f82a06939df9b890c6d1ce1e3197f75 || true
-	echo -e ${GREEN}'>> meta-clang '${NC}
-	git clone https://github.com/kraj/meta-clang || true
-	git -C meta-clang checkout -b develop e63d6f9abba5348e2183089d6ef5ea384d7ae8d8 || true
-	echo -e ${GREEN}'>> meta-browser '${NC}
-	git clone https://github.com/OSSystems/meta-browser || true
-	git -C meta-browser checkout -b develop dcfb4cedc238eee8ed9bd6595bdcacf91c562f67 || true
-else
-	rm -rfv meta-python2 meta-clang meta-browser
-fi
+echo -e ${GREEN}'>> meta-python2 '${NC}
+git clone git://git.openembedded.org/meta-python2 || true
+git -C meta-python2 checkout -b develop 07dca1e54f82a06939df9b890c6d1ce1e3197f75 || true
+echo -e ${GREEN}'>> meta-clang '${NC}
+git clone https://github.com/kraj/meta-clang || true
+git -C meta-clang checkout -b develop e63d6f9abba5348e2183089d6ef5ea384d7ae8d8 || true
+echo -e ${GREEN}'>> meta-browser '${NC}
+git clone https://github.com/OSSystems/meta-browser || true
+git -C meta-browser checkout -b develop dcfb4cedc238eee8ed9bd6595bdcacf91c562f67 || true
 
 ##########################################################
 cd ${SCRIP_DIR}
