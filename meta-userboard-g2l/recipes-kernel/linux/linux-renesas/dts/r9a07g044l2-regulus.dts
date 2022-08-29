@@ -18,19 +18,21 @@
 	model = "Renesas SMARC EVK based on r9a07g044l2";
 	compatible = "renesas,smarc-evk", "renesas,r9a07g044l2", "renesas,r9a07g044";
 
-	rgb_backlight: rgb-backlight {
+	backlight: backlight {
 		compatible = "pwm-backlight";
-		pwms = <&rgb_pwm 0 50000>;
+		pwms = <&gpt2_pins 0 50000>;
 		brightness-levels = <0 2 8 16 32 64 128 255>;
 		default-brightness-level = <6>;
 	};
-	rgb_pwm: rgb-pwm {
+	gpt2_pins: gpt2 {
 		pinmux = <RZG2L_PORT_PINMUX(48, 2, 4)>;
 	};
 	rgb_panel: rgb-panel {
-		compatible = "dataimage,scf0700c48ggu18";
+		//compatible = "dataimage,scf0700c48ggu18";
+		//compatible = "ampire,am-1280800n3tzqw-t00h";
+		compatible = "auo,g121ean01";
 		power-supply = <&reg_3p3v>;
-		backlight = <&rgb_backlight>;
+		backlight = <&backlight>;
 		no-hpd;
 		ports {
 			port@0 {
@@ -103,9 +105,9 @@
 };
 
 &du {
-        status = "okay";
-        pinctrl-0 = <&du_pins>;
-        pinctrl-names = "default";
+	status = "okay";
+	pinctrl-0 = <&du_pins>;
+	pinctrl-names = "default";
 
 	ports {
 		#address-cells = <1>;
@@ -126,6 +128,7 @@
 };
 
 &dsi0 {
+	status = "okay";
 	ports {
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -144,3 +147,6 @@
 	};
 };
 
+&gpt2 {
+	status = "okay";
+};
