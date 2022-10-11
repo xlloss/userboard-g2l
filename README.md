@@ -491,6 +491,7 @@ chromium --no-sandbox
 - Youtube Test
 ```
 chromium --no-sandbox https://www.youtube.com/watch?v=LbDizRI5wrA
+chromium --no-sandbox https://www.youtube.com/watch?v=B_WyWC1WXPw&list=PLZDGm8Izv-C70fJ3ztt_UecU9yVDmBiKI
 ```
 
 ## Maintainers
