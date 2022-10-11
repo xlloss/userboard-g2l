@@ -1,5 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
+SRCREV = "ff167b676547f3997906c82c9be504eb5cff8ef0"
 SRC_URI_append = " \
 	file://qspiFlash-writer-helper \
 	file://makefile \
@@ -27,7 +28,6 @@ do_compile() {
         cd ${S}
 
 	oe_runmake BOARD=${BOARD}
-
         if [ "${PMIC_SUPPORT}" = "1" ]; then
 		oe_runmake OUTPUT_DIR=${PMIC_BUILD_DIR} clean;
 		oe_runmake BOARD=${PMIC_BOARD} OUTPUT_DIR=${PMIC_BUILD_DIR};
