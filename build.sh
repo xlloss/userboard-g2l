@@ -8,10 +8,25 @@ NC='\033[0m' # No Color
 IP_ADDR=$(ip address | grep 192.168 | head -1 | awk '{print $2}' | awk -F '/' '{print $1}')
 
 CORE_IMAGE=core-image-qt
-#MACHINE=smarc-rzg2l
-MACHINE=rzg2l-regulus
 SOC_FAMILY=r9a07g044l
 SOC_FAMILY_PLUS=${SOC_FAMILY}2
+SCRIP_DIR=$(pwd)
+
+BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus" "smarc-rzv2l")
+TARGET_BOARD=$1
+MACHINE=${TARGET_BOARD}
+BUILD_DIR=build
+
+##########################################################
+function Usage () {
+        echo "Usage: $0 \${TARGET_BOARD_NAME}"
+        echo "BOARD_NAME list: "
+        for i in ${BOARD_LIST[@]}; do echo "  - $i"; done
+        exit 0
+}
+if ! `IFS=$'\n'; echo "${BOARD_LIST[*]}" | grep -qx "${TARGET_BOARD}"`; then
+        Usage
+fi
 
 ##########################################################
 function print_boot_example() {
@@ -53,7 +68,6 @@ if [ ! -e Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN.zip ]; then
 fi
 
 ##########################################################
-SCRIP_DIR=$(pwd)
 sudo chown -R ${USER}.${USER} Renesas_software meta-userboard* build.sh
 
 ##########################################################
@@ -118,7 +132,7 @@ echo ""
 ##########################################################
 cd ${SCRIP_DIR}
 echo -e ${GREEN}'>> oe-init-build-env '${NC}
-source poky/oe-init-build-env
+source poky/oe-init-build-env ${BUILD_DIR}
 echo ""
 
 ##########################################################
