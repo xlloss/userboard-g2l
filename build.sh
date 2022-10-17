@@ -149,6 +149,14 @@ bitbake-layers show-layers
 echo ""
 echo -e ${GREEN}'>> core-image '${NC}
 cd ${SCRIP_DIR}/build
+bitbake flash-writer -v -c cleansstate
+bitbake trusted-firmware-a -v -c cleansstate
+bitbake optee-os -v -c cleansstate
+bitbake kernel-module-mali -v -c cleansstate
+bitbake mali-library -v -c cleansstate
+bitbake omx-user-module -v -c cleansstate
+bitbake kernel-module-uvcs-drv -v -c cleansstate
+
 bitbake ${CORE_IMAGE} -v
 echo ""
 
