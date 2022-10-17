@@ -12,10 +12,11 @@ SOC_FAMILY=r9a07g044l
 SOC_FAMILY_PLUS=${SOC_FAMILY}2
 SCRIP_DIR=$(pwd)
 
-BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus" "smarc-rzv2l")
+#BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus" "smarc-rzv2l")
+BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus")
 TARGET_BOARD=$1
 MACHINE=${TARGET_BOARD}
-BUILD_DIR=build
+BUILD_DIR=build_${TARGET_BOARD}
 
 ##########################################################
 function Usage () {
@@ -136,7 +137,7 @@ source poky/oe-init-build-env ${BUILD_DIR}
 echo ""
 
 ##########################################################
-cd ${SCRIP_DIR}/build
+cd ${SCRIP_DIR}/${BUILD_DIR}
 echo -e ${GREEN}'>> local.conf bblayers.conf '${NC}
 /bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${MACHINE}/local.conf ./conf/local.conf
 /bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${MACHINE}/bblayers.conf ./conf/bblayers.conf
@@ -148,15 +149,7 @@ echo -e ${GREEN}'>> show-layers '${NC}
 bitbake-layers show-layers
 echo ""
 echo -e ${GREEN}'>> core-image '${NC}
-cd ${SCRIP_DIR}/build
-bitbake flash-writer -v -c cleansstate
-bitbake trusted-firmware-a -v -c cleansstate
-bitbake optee-os -v -c cleansstate
-bitbake kernel-module-mali -v -c cleansstate
-bitbake mali-library -v -c cleansstate
-bitbake omx-user-module -v -c cleansstate
-bitbake kernel-module-uvcs-drv -v -c cleansstate
-
+cd ${SCRIP_DIR}/${BUILD_DIR}
 bitbake ${CORE_IMAGE} -v
 echo ""
 
@@ -165,11 +158,11 @@ echo -e "${GREEN}>> exported rootfs ${NC}"
 cd ${SCRIP_DIR}
 mkdir -p rootfs
 sudo /bin/rm -rf rootfs/*
-sudo tar zxf build/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz -C rootfs
-sudo tar zxf build/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz -C rootfs
-sudo /bin/cp -Rpfv build/tmp/deploy/images/${MACHINE}/$(ls -l build/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') rootfs/boot/modules-${MACHINE}.tgz
-sudo /bin/cp -Rpfv build/tmp/deploy/images/${MACHINE}/$(ls -l build/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz | awk '{print $11}') rootfs/boot/${CORE_IMAGE}-${MACHINE}.tar.gz
-cd build/tmp/deploy/images/${MACHINE}
+sudo tar zxf ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz -C rootfs
+sudo tar zxf ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz -C rootfs
+sudo /bin/cp -Rpfv ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') rootfs/boot/modules-${MACHINE}.tgz
+sudo /bin/cp -Rpfv ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz | awk '{print $11}') rootfs/boot/${CORE_IMAGE}-${MACHINE}.tar.gz
+cd ${BUILD_DIR}/tmp/deploy/images/${MACHINE}
 for D in $(ls -l ${SOC_FAMILY}*.dtb | grep '\->' | awk '{print $9}' | xargs file | awk '{print $1}' | sed 's!:!!g'); do
 	L=${D}; S=$(file ${L} | awk '{print $5}')
 	sudo /bin/cp -Rpf ${S} ${SCRIP_DIR}/rootfs/boot/${L}
@@ -190,8 +183,8 @@ if [ $(ls /dev/disk/by-id | grep SD_MMC | wc -l) -eq 0 \
 	-a $(ls /dev/disk/by-id | grep usb-USB_Mass_Storage_Device | wc -l) -eq 0 ]; then
 	echo -e "${GREEN}>> ${CORE_IMAGE}-${MACHINE}.tar.gz ${NC}"
 	cd ${SCRIP_DIR}
-	ls -ld --color build/tmp/deploy/images/${MACHINE}
-	ls -l --color build/tmp/deploy/images/${MACHINE}
+	ls -ld --color ${BUILD_DIR}/tmp/deploy/images/${MACHINE}
+	ls -l --color ${BUILD_DIR}/tmp/deploy/images/${MACHINE}
 	echo ""
 	echo -e "${GREEN}>> all succeeded ${NC}"
 	print_boot_example
@@ -267,9 +260,9 @@ echo -e "${GREEN}>> SD_MMC boot ${NC}"
 echo yes | sudo mkfs.vfat -n BOOT ${SDDEV}1
 sudo mount -t vfat ${SDDEV}1 mnt
 sudo rm -rfv ./mnt/*
-sudo /bin/cp build/tmp/deploy/images/${MACHINE}/$(ls -l build/tmp/deploy/images/${MACHINE}/Image | awk '{print $11}') mnt/Image
-sudo /bin/cp build/tmp/deploy/images/${MACHINE}/r*.dtb mnt/
-sudo /bin/cp build/tmp/deploy/images/${MACHINE}/$(ls -l build/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') mnt/modules-${MACHINE}.tgz
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/Image | awk '{print $11}') mnt/Image
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/r*.dtb mnt/
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') mnt/modules-${MACHINE}.tgz
 sudo umount mnt
 
 ##########################################################
@@ -277,9 +270,9 @@ echo -e "${GREEN}>> SD_MMC boot ${NC}"
 echo yes | sudo mkfs.vfat -n BOOT ${SDDEV}1
 sudo mount -t vfat ${SDDEV}1 mnt
 sudo rm -rfv ./mnt/*
-sudo /bin/cp build/tmp/deploy/images/${MACHINE}/$(ls -l build/tmp/deploy/images/${MACHINE}/Image | awk '{print $11}') mnt/Image
-sudo /bin/cp build/tmp/deploy/images/${MACHINE}/r*.dtb mnt/
-sudo /bin/cp build/tmp/deploy/images/${MACHINE}/$(ls -l build/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') mnt/modules-${MACHINE}.tgz
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/Image | awk '{print $11}') mnt/Image
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/r*.dtb mnt/
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') mnt/modules-${MACHINE}.tgz
 sudo umount mnt
 
 ##########################################################
@@ -288,8 +281,8 @@ echo yes | sudo mkfs.ext4 -E lazy_itable_init=1,lazy_journal_init=1 ${SDDEV}2 -L
 sudo tune2fs -O ^has_journal ${SDDEV}2
 sudo mount -t ext4 -O noatime,nodirame,data=writeback ${SDDEV}2 mnt
 sudo rm -rfv ./mnt/*
-sudo tar zxvf build/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz -C mnt/
-sudo tar zxvf build/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz -C mnt/
+sudo tar zxvf ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz -C mnt/
+sudo tar zxvf ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz -C mnt/
 sudo sync &
 (for n in $(seq 1 1440); do sleep 1 ; if [ $(grep -e Dirty: /proc/meminfo | awk '{print $2}') -lt 4096 ]; then break ; fi; done ; killall watch ;) &
 watch -d -e grep -e Dirty: -e Writeback: /proc/meminfo
