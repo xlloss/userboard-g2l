@@ -15,7 +15,6 @@ SCRIP_DIR=$(pwd)
 #BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus" "smarc-rzv2l")
 BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus")
 TARGET_BOARD=$1
-MACHINE=${TARGET_BOARD}
 BUILD_DIR=build_${TARGET_BOARD}
 
 ##########################################################
@@ -33,21 +32,21 @@ fi
 function print_boot_example() {
 	echo ""
 	echo ">> FOR QSPI FLASH BOOT"
-	echo -e "${YELLOW} => setenv bootmmc 'setenv bootargs rw rootwait earlycon root=/dev/mmcblk0p2 video=HDMI-A1:1280x720@60; fatload mmc 0:1 0x48080000 Image; fatload mmc 0:1 0x48000000 ${SOC_FAMILY_PLUS}-${MACHINE}.dtb; booti 0x48080000 - 0x48000000' ${NC}"
+	echo -e "${YELLOW} => setenv bootmmc 'setenv bootargs rw rootwait earlycon root=/dev/mmcblk0p2 video=HDMI-A1:1280x720@60; fatload mmc 0:1 0x48080000 Image; fatload mmc 0:1 0x48000000 ${SOC_FAMILY_PLUS}-${TARGET_BOARD}.dtb; booti 0x48080000 - 0x48000000' ${NC}"
 	echo -e "${YELLOW} => run bootmmc ${NC}"
 	echo ""
 	echo ">> FOR SD BOOT"
-	echo -e "${YELLOW} => setenv bootsd 'setenv bootargs rw rootwait earlycon root=/dev/mmcblk1p2 video=HDMI-A1:1280x720@60; fatload mmc 1:1 0x48080000 Image; fatload mmc 1:1 0x48000000 ${SOC_FAMILY_PLUS}-${MACHINE}.dtb; booti 0x48080000 - 0x48000000' ${NC}"
+	echo -e "${YELLOW} => setenv bootsd 'setenv bootargs rw rootwait earlycon root=/dev/mmcblk1p2 video=HDMI-A1:1280x720@60; fatload mmc 1:1 0x48080000 Image; fatload mmc 1:1 0x48000000 ${SOC_FAMILY_PLUS}-${TARGET_BOARD}.dtb; booti 0x48080000 - 0x48000000' ${NC}"
 	echo -e "${YELLOW} => run bootsd ${NC}"
 	echo ""
 	echo ">> FOR USB BOOT"
-	echo -e "${YELLOW} => setenv bootusb 'setenv bootargs rw rootwait earlycon root=/dev/sda2 video=HDMI-A1:1280x720@60; usb reset; fatload usb 0:1 0x48080000 Image; fatload usb 0:1 0x48000000 ${SOC_FAMILY_PLUS}-${MACHINE}.dtb; booti 0x48080000 - 0x48000000' ${NC}"
+	echo -e "${YELLOW} => setenv bootusb 'setenv bootargs rw rootwait earlycon root=/dev/sda2 video=HDMI-A1:1280x720@60; usb reset; fatload usb 0:1 0x48080000 Image; fatload usb 0:1 0x48000000 ${SOC_FAMILY_PLUS}-${TARGET_BOARD}.dtb; booti 0x48080000 - 0x48000000' ${NC}"
 	echo -e "${YELLOW} => run bootusb ${NC}"
 	echo ""
 	echo ">> FOR NFS BOOT"
 	echo -e "${YELLOW} => setenv ethaddr 2E:09:0A:00:BE:11 ${NC}"
 	echo -e "${YELLOW} => setenv ipaddr $(echo ${IP_ADDR} | grep 192.168 | head -1 | awk -F '.' '{print $1 "." $2 "." $3}').133; setenv serverip ${IP_ADDR}; setenv NFSROOT \${serverip}:$(pwd)/rootfs ${NC}"
-	echo -e "${YELLOW} => setenv bootnfs 'nfs 0x48080000 \${NFSROOT}/boot/Image; nfs 0x48000000 \${NFSROOT}/boot/${SOC_FAMILY_PLUS}-${MACHINE}.dtb; setenv bootargs rw rootwait earlycon root=/dev/nfs nfsroot=\${NFSROOT} ip=dhcp; booti 0x48080000 - 0x48000000' ${NC}"
+	echo -e "${YELLOW} => setenv bootnfs 'nfs 0x48080000 \${NFSROOT}/boot/Image; nfs 0x48000000 \${NFSROOT}/boot/${SOC_FAMILY_PLUS}-${TARGET_BOARD}.dtb; setenv bootargs rw rootwait earlycon root=/dev/nfs nfsroot=\${NFSROOT} ip=dhcp; booti 0x48080000 - 0x48000000' ${NC}"
 	echo -e "${YELLOW} => run bootnfs ${NC}"
 	echo ""
 }
@@ -139,9 +138,9 @@ echo ""
 ##########################################################
 cd ${SCRIP_DIR}/${BUILD_DIR}
 echo -e ${GREEN}'>> local.conf bblayers.conf '${NC}
-/bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${MACHINE}/local.conf ./conf/local.conf
-/bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${MACHINE}/bblayers.conf ./conf/bblayers.conf
-/bin/cp -Rpfv ../meta-userboard-g2l/conf/machine/${MACHINE}.conf ../meta-renesas/conf/machine
+/bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${TARGET_BOARD}/local.conf ./conf/local.conf
+/bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${TARGET_BOARD}/bblayers.conf ./conf/bblayers.conf
+/bin/cp -Rpfv ../meta-userboard-g2l/conf/machine/${TARGET_BOARD}.conf ../meta-renesas/conf/machine
 echo ""
 
 ##########################################################
@@ -158,11 +157,11 @@ echo -e "${GREEN}>> exported rootfs ${NC}"
 cd ${SCRIP_DIR}
 mkdir -p rootfs
 sudo /bin/rm -rf rootfs/*
-sudo tar zxf ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz -C rootfs
-sudo tar zxf ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz -C rootfs
-sudo /bin/cp -Rpfv ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') rootfs/boot/modules-${MACHINE}.tgz
-sudo /bin/cp -Rpfv ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz | awk '{print $11}') rootfs/boot/${CORE_IMAGE}-${MACHINE}.tar.gz
-cd ${BUILD_DIR}/tmp/deploy/images/${MACHINE}
+sudo tar zxf ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz -C rootfs
+sudo tar zxf ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz -C rootfs
+sudo /bin/cp -Rpfv ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz | awk '{print $11}') rootfs/boot/modules-${TARGET_BOARD}.tgz
+sudo /bin/cp -Rpfv ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz | awk '{print $11}') rootfs/boot/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz
+cd ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}
 for D in $(ls -l ${SOC_FAMILY}*.dtb | grep '\->' | awk '{print $9}' | xargs file | awk '{print $1}' | sed 's!:!!g'); do
 	L=${D}; S=$(file ${L} | awk '{print $5}')
 	sudo /bin/cp -Rpf ${S} ${SCRIP_DIR}/rootfs/boot/${L}
@@ -181,10 +180,10 @@ if [ $(ls /dev/disk/by-id | grep SD_MMC | wc -l) -eq 0 \
 	-a $(ls /dev/disk/by-id | grep General_USB_Flash_Disk | wc -l) -eq 0 \
 	-a $(ls /dev/disk/by-id | grep usb-JetFlash | wc -l) -eq 0 \
 	-a $(ls /dev/disk/by-id | grep usb-USB_Mass_Storage_Device | wc -l) -eq 0 ]; then
-	echo -e "${GREEN}>> ${CORE_IMAGE}-${MACHINE}.tar.gz ${NC}"
+	echo -e "${GREEN}>> ${CORE_IMAGE}-${TARGET_BOARD}.tar.gz ${NC}"
 	cd ${SCRIP_DIR}
-	ls -ld --color ${BUILD_DIR}/tmp/deploy/images/${MACHINE}
-	ls -l --color ${BUILD_DIR}/tmp/deploy/images/${MACHINE}
+	ls -ld --color ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}
+	ls -l --color ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}
 	echo ""
 	echo -e "${GREEN}>> all succeeded ${NC}"
 	print_boot_example
@@ -260,9 +259,9 @@ echo -e "${GREEN}>> SD_MMC boot ${NC}"
 echo yes | sudo mkfs.vfat -n BOOT ${SDDEV}1
 sudo mount -t vfat ${SDDEV}1 mnt
 sudo rm -rfv ./mnt/*
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/Image | awk '{print $11}') mnt/Image
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/r*.dtb mnt/
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') mnt/modules-${MACHINE}.tgz
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/Image | awk '{print $11}') mnt/Image
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/r*.dtb mnt/
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz | awk '{print $11}') mnt/modules-${TARGET_BOARD}.tgz
 sudo umount mnt
 
 ##########################################################
@@ -270,9 +269,9 @@ echo -e "${GREEN}>> SD_MMC boot ${NC}"
 echo yes | sudo mkfs.vfat -n BOOT ${SDDEV}1
 sudo mount -t vfat ${SDDEV}1 mnt
 sudo rm -rfv ./mnt/*
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/Image | awk '{print $11}') mnt/Image
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/r*.dtb mnt/
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz | awk '{print $11}') mnt/modules-${MACHINE}.tgz
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/Image | awk '{print $11}') mnt/Image
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/r*.dtb mnt/
+sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz | awk '{print $11}') mnt/modules-${TARGET_BOARD}.tgz
 sudo umount mnt
 
 ##########################################################
@@ -281,8 +280,8 @@ echo yes | sudo mkfs.ext4 -E lazy_itable_init=1,lazy_journal_init=1 ${SDDEV}2 -L
 sudo tune2fs -O ^has_journal ${SDDEV}2
 sudo mount -t ext4 -O noatime,nodirame,data=writeback ${SDDEV}2 mnt
 sudo rm -rfv ./mnt/*
-sudo tar zxvf ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/${CORE_IMAGE}-${MACHINE}.tar.gz -C mnt/
-sudo tar zxvf ${BUILD_DIR}/tmp/deploy/images/${MACHINE}/modules-${MACHINE}.tgz -C mnt/
+sudo tar zxvf ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz -C mnt/
+sudo tar zxvf ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz -C mnt/
 sudo sync &
 (for n in $(seq 1 1440); do sleep 1 ; if [ $(grep -e Dirty: /proc/meminfo | awk '{print $2}') -lt 4096 ]; then break ; fi; done ; killall watch ;) &
 watch -d -e grep -e Dirty: -e Writeback: /proc/meminfo
