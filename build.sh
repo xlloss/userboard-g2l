@@ -12,8 +12,7 @@ SOC_FAMILY=r9a07g044l
 SOC_FAMILY_PLUS=${SOC_FAMILY}2
 SCRIP_DIR=$(pwd)
 
-#BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus" "smarc-rzv2l")
-BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus")
+BOARD_LIST=("smarc-rzg2l" "rzg2l-regulus" "smarc-rzv2l" "rzv2l-dev")
 TARGET_BOARD=$1
 BUILD_DIR=build_${TARGET_BOARD}
 
