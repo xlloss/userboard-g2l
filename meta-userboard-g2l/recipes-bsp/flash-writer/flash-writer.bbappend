@@ -1,6 +1,5 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-SRCREV = "ff167b676547f3997906c82c9be504eb5cff8ef0"
 SRC_URI_append = " \
 	file://qspiFlash-writer-helper \
 	file://makefile \

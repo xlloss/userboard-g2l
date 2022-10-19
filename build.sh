@@ -53,12 +53,12 @@ function print_boot_example() {
 ##########################################################
 sudo umount mnt || true
 mkdir -p mnt && sudo rm -rfv mnt/*
-if [ ! -e Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1.zip ]; then
-	echo -e ${YELLOW}'Please download the RTK0EF0045Z0021AZJ-v3.0.0-update1.zip from renesas.com . '${NC}
+if [ ! -e Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip ]; then
+	echo -e ${YELLOW}'Please download the RTK0EF0045Z0024AZJ-v3.0.0-update2.zip from renesas.com . '${NC}
 	exit 1
 fi
-if [ ! -e Renesas_software/RTK0EF0045Z13001ZJ-v1.2_EN.zip ]; then
-	echo -e ${YELLOW}'Please download the RTK0EF0045Z13001ZJ-v1.2_EN.zip from renesas.com . '${NC}
+if [ ! -e Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN.zip ]; then
+	echo -e ${YELLOW}'Please download the RTK0EF0045Z13001ZJ-v1.21_EN.zip from renesas.com . '${NC}
 	exit 1
 fi
 if [ ! -e Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN.zip ]; then
@@ -79,15 +79,18 @@ echo ""
 ##########################################################
 cd ${SCRIP_DIR}
 echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0-update1'${NC}
-[ ! -d Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1 ] && \
-	unzip -o Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1.zip -d Renesas_software
-[ ! -d extra -o ! -d meta-renesas -o ! -d poky -o ! -d meta-openembedded -o ! -d meta-qt5 ] && tar zxvf Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1/rzg_bsp_v3.0.0.tar.gz
+[ ! -d Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2 ] && \
+	unzip -o Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip -d Renesas_software
+if [ ! -d meta-renesas -o ! -d poky -o ! -d meta-openembedded -o ! -d meta-qt5 ]; then
+	tar zxvf Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_bsp_v3.0.0.tar.gz
+	patch -p1 -l -f --fuzz 3 -i Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_v300-to-v300update2.patch
+fi
 
 echo -e ${GREEN}'>> RZ MPU Graphics Library Evaluation Version V1.2 for RZ/G2L, RZ/G2LC, and RZ/V2L'${NC}
-[ ! -d Renesas_software/RTK0EF0045Z13001ZJ-v1.2_EN ] && \
-	unzip -o Renesas_software/RTK0EF0045Z13001ZJ-v1.2_EN.zip -d Renesas_software
+[ ! -d Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN ] && \
+	unzip -o Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN.zip -d Renesas_software
 [ ! -e meta-rz-features/recipes-graphics/mali/mali-library.bb ] && \
-	tar zxvf Renesas_software/RTK0EF0045Z13001ZJ-v1.2_EN/meta-rz-features.tar.gz
+	tar zxvf Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN/meta-rz-features.tar.gz
 
 echo -e ${GREEN}'>> RZ MPU Video Codec Library Evaluation Version V0.58 for RZ/G2L and RZ/V2L'${NC}
 [ ! -d Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN ] && \
@@ -106,27 +109,6 @@ git -C meta-clang checkout -b develop e63d6f9abba5348e2183089d6ef5ea384d7ae8d8 |
 echo -e ${GREEN}'>> meta-browser '${NC}
 git clone https://github.com/OSSystems/meta-browser || true
 git -C meta-browser checkout -b develop dcfb4cedc238eee8ed9bd6595bdcacf91c562f67 || true
-
-##########################################################
-cd ${SCRIP_DIR}
-echo -e ${GREEN}'>> v300-to-v300update1.patch, v300update1-to-v300update1_cip3.patch'${NC}
-if [ ! -e meta-renesas/docs/template/conf/smarc-rzv2l/local.conf ]; then
-	patch -p1 -l -f --fuzz 3 -i Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update1/v300-to-v300update1.patch
-	patch -p1 -l -f --fuzz 3 -i extra/v300update1-to-v300update1_cip3.patch
-fi
-echo -e ${GREEN}'>> 0001-Add-HDMI-support-for-RZ-G2.patch'${NC}
-if [ ! -e meta-renesas/recipes-rzg2h/recipes-kernel/linux/linux-renesas/hdmi_patches/0001-drm-rcar-du-Fix-PHY-configure-registers.patch ]; then
-	patch -p1 -l -f --fuzz 3 -d meta-renesas -i ../extra/0001-Add-HDMI-support-for-RZ-G2.patch
-fi
-echo -e ${GREEN}'>> 0002-trusted-firmware-a-add-rd-wr-64-bit-reg-workaround.patch'${NC}
-if [ ! -e meta-renesas/recipes-common/recipes-bsp/trusted-firmware-a/files/0001-rzg2l-workaround-for-rd-wr-GIC-64-bit-reg.patch ]; then
-	patch -p1 -l -f --fuzz 3 -d meta-renesas -i ../extra/0002-trusted-firmware-a-add-rd-wr-64-bit-reg-workaround.patch
-fi
-echo -e ${GREEN}'>> 0003-recipes-rzg2l-linux-renesas-add-WA-GIC-access-64bit.patch'${NC}
-if [ ! -e meta-renesas/recipes-rzg2l/recipes-kernel/linux/linux-renesas/0001-arm64-arch_gicv3-Workaround-GIC-access-64bit-issue.patch ]; then
-	patch -p1 -l -f --fuzz 3 -d meta-renesas -i ../extra/0003-recipes-rzg2l-linux-renesas-add-WA-GIC-access-64bit.patch
-fi
-echo ""
 
 ##########################################################
 cd ${SCRIP_DIR}
