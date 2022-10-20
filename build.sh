@@ -77,29 +77,30 @@ sudo apt-get install -y gawk wget git-core diffstat unzip texinfo gcc-multilib \
 echo ""
 
 ##########################################################
-cd ${SCRIP_DIR}
-echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0-update1'${NC}
-[ ! -d Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2 ] && \
-	unzip -o Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip -d Renesas_software
+mkdir -p ${SCRIP_DIR}/sources
+cd ${SCRIP_DIR}/sources
+echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0-update2'${NC}
+[ ! -d ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2 ] && \
+	unzip -o ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip -d ../Renesas_software
 if [ ! -d meta-renesas -o ! -d poky -o ! -d meta-openembedded -o ! -d meta-qt5 ]; then
-	tar zxvf Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_bsp_v3.0.0.tar.gz
-	patch -p1 -l -f --fuzz 3 -i Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_v300-to-v300update2.patch
+	tar zxvf ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_bsp_v3.0.0.tar.gz
+	patch -p1 -l -f --fuzz 3 -i ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_v300-to-v300update2.patch
 fi
 
 echo -e ${GREEN}'>> RZ MPU Graphics Library Evaluation Version V1.2 for RZ/G2L, RZ/G2LC, and RZ/V2L'${NC}
-[ ! -d Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN ] && \
-	unzip -o Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN.zip -d Renesas_software
+[ ! -d ../Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN ] && \
+	unzip -o ../Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN.zip -d ../Renesas_software
 [ ! -e meta-rz-features/recipes-graphics/mali/mali-library.bb ] && \
-	tar zxvf Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN/meta-rz-features.tar.gz
+	tar zxvf ../Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN/meta-rz-features.tar.gz
 
 echo -e ${GREEN}'>> RZ MPU Video Codec Library Evaluation Version V0.58 for RZ/G2L and RZ/V2L'${NC}
-[ ! -d Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN ] && \
-	unzip -o Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN.zip -d Renesas_software
+[ ! -d ../Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN ] && \
+	unzip -o ../Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN.zip -d ../Renesas_software
 [ ! -e meta-rz-features/recipes-codec/omx-module/omx-user-module.bb ] && \
-	tar zxvf Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN/meta-rz-features.tar.gz
+	tar zxvf ../Renesas_software/RTK0EF0045Z15001ZJ-v0.58_EN/meta-rz-features.tar.gz
 
 ##########################################################
-cd ${SCRIP_DIR}
+cd ${SCRIP_DIR}/sources
 echo -e ${GREEN}'>> meta-python2 '${NC}
 git clone git://git.openembedded.org/meta-python2 || true
 git -C meta-python2 checkout -b develop 07dca1e54f82a06939df9b890c6d1ce1e3197f75 || true
@@ -113,7 +114,7 @@ git -C meta-browser checkout -b develop dcfb4cedc238eee8ed9bd6595bdcacf91c562f67
 ##########################################################
 cd ${SCRIP_DIR}
 echo -e ${GREEN}'>> oe-init-build-env '${NC}
-source poky/oe-init-build-env ${BUILD_DIR}
+source sources/poky/oe-init-build-env ${BUILD_DIR}
 echo ""
 
 ##########################################################
@@ -121,7 +122,7 @@ cd ${SCRIP_DIR}/${BUILD_DIR}
 echo -e ${GREEN}'>> local.conf bblayers.conf '${NC}
 /bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${TARGET_BOARD}/local.conf ./conf/local.conf
 /bin/cp -fv ../meta-userboard-g2l/docs/template/conf/${TARGET_BOARD}/bblayers.conf ./conf/bblayers.conf
-/bin/cp -Rpfv ../meta-userboard-g2l/conf/machine/${TARGET_BOARD}.conf ../meta-renesas/conf/machine
+/bin/cp -Rpfv ../meta-userboard-g2l/conf/machine/${TARGET_BOARD}.conf ../sources/meta-renesas/conf/machine
 echo ""
 
 ##########################################################
