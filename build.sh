@@ -15,6 +15,8 @@ SCRIP_DIR=$(pwd)
 BOARD_LIST=("smarc-rzg2l" "greenpak-rzg2l" "smarc-rzv2l" "rzv2l-dev")
 TARGET_BOARD=$1
 BUILD_DIR=build_${TARGET_BOARD}
+[ "${TARGET_BOARD}" == "smarc-rzv2l" ] && SOC_FAMILY=r9a07g054l
+[ "${TARGET_BOARD}" == "rzv2l-dev" ] && SOC_FAMILY=r9a07g054l
 
 ##########################################################
 function Usage () {
