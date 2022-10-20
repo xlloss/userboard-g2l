@@ -87,7 +87,7 @@ if [ ! -d meta-renesas -o ! -d poky -o ! -d meta-openembedded -o ! -d meta-qt5 ]
 	patch -p1 -l -f --fuzz 3 -i ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_v300-to-v300update2.patch
 fi
 
-echo -e ${GREEN}'>> RZ MPU Graphics Library Evaluation Version V1.2 for RZ/G2L, RZ/G2LC, and RZ/V2L'${NC}
+echo -e ${GREEN}'>> RZ MPU Graphics Library Evaluation Version V1.21 for RZ/G2L, RZ/G2LC, and RZ/V2L'${NC}
 [ ! -d ../Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN ] && \
 	unzip -o ../Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN.zip -d ../Renesas_software
 [ ! -e meta-rz-features/recipes-graphics/mali/mali-library.bb ] && \
