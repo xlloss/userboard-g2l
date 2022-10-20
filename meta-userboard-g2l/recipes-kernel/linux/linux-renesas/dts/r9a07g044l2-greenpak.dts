@@ -12,7 +12,7 @@
 #include "rzg2l-smarc-som.dtsi"
 #include "rzg2l-smarc-pinfunction.dtsi"
 #include "rz-smarc-common.dtsi"
-#include "rzg2l-regulus.dtsi"
+#include "greenpak-rzg2l.dtsi"
 
 / {
 	model = "Renesas SMARC EVK based on r9a07g044l2";

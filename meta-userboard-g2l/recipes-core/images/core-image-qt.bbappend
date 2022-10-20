@@ -18,11 +18,6 @@ IMAGE_INSTALL_append = " \
 	mkfs-helper \
 "
 
-#IMAGE_INSTALL_append = " \
-#	${@oe.utils.conditional("BROWSER_LAYER", "True", \
-#	"chromium-ozone-wayland"i \
-#	, "", d)} \
-#"
 IMAGE_INSTALL_append = " \
 	${@oe.utils.conditional("CHROMIUM", "1", " \
         chromium-ozone-wayland \
@@ -31,13 +26,13 @@ IMAGE_INSTALL_append = " \
 
 update_issues () {
     # Set BSP version
-    BSP_VERSION="3.0.0-update1"
+    BSP_VERSION="3.0.0-update2"
 
     # Set SoC and Board info
     case "${MACHINE}" in
-    rzg2l-regulus)
+    greenpak-rzg2l)
       BSP_SOC="RZG2L"
-      BSP_BOARD="RZG2L-REGULUS"
+      BSP_BOARD="RZG2L-GREENPAK-EVK"
       ;;
     smarc-rzg2l)
       BSP_SOC="RZG2L"

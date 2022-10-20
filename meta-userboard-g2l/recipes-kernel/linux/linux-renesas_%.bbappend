@@ -4,11 +4,11 @@ SRC_URI_append = " \
 	file://i2c.cfg \
 	file://panel.cfg \
 	file://nfsd.cfg \
-	file://dts/r9a07g044l2-regulus.dts \
-	file://dts/rzg2l-regulus.dtsi \
+	file://dts/r9a07g044l2-greenpak.dts \
+	file://dts/greenpak-rzg2l.dtsi \
 "
 
-COMPATIBLE_MACHINE_rzg2l = "(smarc-rzg2l|smarc-rzg2lc|smarc-rzg2ul|rzg2l-regulus|smarc-rzv2l|rzv2l-dev)"
+COMPATIBLE_MACHINE_rzg2l = "(smarc-rzg2l|smarc-rzg2lc|smarc-rzg2ul|greenpak-rzg2l|smarc-rzv2l|rzv2l-dev)"
 
 PARALLEL_MAKE = "-j 8"
 
@@ -22,6 +22,6 @@ EXTRA_OEMAKE_append = " V=1"
 
 do_patch_append () {
 	mkdir -p ${STAGING_KERNEL_DIR}/arch/arm64/boot/dts/renesas
-	cp -Rpfv ${WORKDIR}/dts/r9a07g044l2-regulus.dts ${STAGING_KERNEL_DIR}/arch/arm64/boot/dts/renesas
-	cp -Rpfv ${WORKDIR}/dts/rzg2l-regulus.dtsi ${STAGING_KERNEL_DIR}/arch/arm64/boot/dts/renesas
+	cp -Rpfv ${WORKDIR}/dts/r9a07g044l2-greenpak.dts ${STAGING_KERNEL_DIR}/arch/arm64/boot/dts/renesas
+	cp -Rpfv ${WORKDIR}/dts/greenpak-rzg2l.dtsi ${STAGING_KERNEL_DIR}/arch/arm64/boot/dts/renesas
 }

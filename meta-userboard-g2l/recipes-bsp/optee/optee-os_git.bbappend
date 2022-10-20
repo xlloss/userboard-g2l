@@ -1,5 +1,5 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-COMPATIBLE_MACHINE_rzg2l = "(smarc-rzg2l|smarc-rzg2lc|smarc-rzg2ul|rzg2l-regulus|smarc-rzv2l|rzv2l-dev)"
+COMPATIBLE_MACHINE_rzg2l = "(smarc-rzg2l|smarc-rzg2lc|smarc-rzg2ul|greenpak-rzg2l|smarc-rzv2l|rzv2l-dev)"
 
-PLATFORM_FLAVOR_rzg2l-regulus = "g2l_smarc_2"
+PLATFORM_FLAVOR_greenpak-rzg2l = "g2l_smarc_2"
