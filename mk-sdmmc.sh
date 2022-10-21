@@ -4,10 +4,11 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-
 SCRIPT_DIR=`pwd`
 WORK=`pwd`/${TARGET_BOARD}
 
+HMI=qt
+CORE_IMAGE=core-image-${HMI}
 SOC_FAMILY=r9a07g044l
 SOC_FAMILY_PLUS=${SOC_FAMILY}2
 SCRIP_DIR=$(pwd)
@@ -42,7 +43,7 @@ function Usage () {
 if ! `IFS=$'\n'; echo "${BOARD_LIST[*]}" | grep -qx "${TARGET_BOARD}"`; then
 	Usage
 fi
-if [ ! -e ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/core-image-qt-${TARGET_BOARD}.tar.gz ]; then
+if [ ! -e ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz ]; then
 	Usage
 fi
 if [ ! -e ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}//modules-${TARGET_BOARD}.tgz ]; then
@@ -89,13 +90,13 @@ echo y | sudo mkfs.ext4 -E lazy_itable_init=0,lazy_journal_init=1 ${LOOP}p1 -L b
 sudo mount ${LOOP}p1 mnt
 sudo cp -Rpf ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/Image* mnt
 sudo cp -Rpf ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/*.dtb mnt
-sudo cp -Rpf ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/core-image-qt-${TARGET_BOARD}*.tar.gz mnt
+sudo cp -Rpf ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}*.tar.gz mnt
 sudo cp -Rpf ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/modules-*.tgz mnt
 sudo umount mnt
 
 echo y | sudo mkfs.ext4 -E lazy_itable_init=0,lazy_journal_init=1 ${LOOP}p2 -L rootfs -U 614e0000-0000-4b53-8000-1d28000054a9 -jDv
 sudo mount ${LOOP}p2 mnt
-sudo tar zxf ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/core-image-qt-${TARGET_BOARD}.tar.gz -C mnt
+sudo tar zxf ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz -C mnt
 sudo tar zxf ${SCRIP_DIR}/build_${TARGET_BOARD}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz -C mnt
 sudo umount mnt
 

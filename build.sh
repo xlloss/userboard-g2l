@@ -7,7 +7,8 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 IP_ADDR=$(ip address | grep 192.168 | head -1 | awk '{print $2}' | awk -F '/' '{print $1}')
 
-CORE_IMAGE=core-image-qt
+HMI=qt
+CORE_IMAGE=core-image-${HMI}
 SOC_FAMILY=r9a07g044l
 SOC_FAMILY_PLUS=${SOC_FAMILY}2
 SCRIP_DIR=$(pwd)
@@ -135,143 +136,6 @@ echo -e ${GREEN}'>> core-image '${NC}
 cd ${SCRIP_DIR}/${BUILD_DIR}
 bitbake ${CORE_IMAGE} -v
 echo ""
-
-##########################################################
-echo -e "${GREEN}>> exported rootfs ${NC}"
-cd ${SCRIP_DIR}
-mkdir -p rootfs
-sudo /bin/rm -rf rootfs/*
-sudo tar zxf ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz -C rootfs
-sudo tar zxf ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz -C rootfs
-sudo /bin/cp -Rpfv ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz | awk '{print $11}') rootfs/boot/modules-${TARGET_BOARD}.tgz
-sudo /bin/cp -Rpfv ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz | awk '{print $11}') rootfs/boot/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz
-cd ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}
-for D in $(ls -l ${SOC_FAMILY}*.dtb | grep '\->' | awk '{print $9}' | xargs file | awk '{print $1}' | sed 's!:!!g'); do
-	L=${D}; S=$(file ${L} | awk '{print $5}')
-	sudo /bin/cp -Rpf ${S} ${SCRIP_DIR}/rootfs/boot/${L}
-done
-cd -
-sudo chmod 777 rootfs/boot
-sudo chown -R ${USER}.${USER} rootfs/boot/*
-echo -e "${GREEN}>> Please update /etc/exports and run 'sudo /etc/init.d/nfs-kernel-server restart' ${NC}"
-echo -e ${GREEN}"${SCRIP_DIR}/rootfs   *(rw,sync,no_root_squash,no_subtree_check)"${NC}
-echo ""
-
-##########################################################
-cd ${SCRIP_DIR}
-if [ $(ls /dev/disk/by-id | grep SD_MMC | wc -l) -eq 0 \
-	-a $(ls /dev/disk/by-id | grep Generic_USB_Flash_Disk | wc -l) -eq 0 \
-	-a $(ls /dev/disk/by-id | grep General_USB_Flash_Disk | wc -l) -eq 0 \
-	-a $(ls /dev/disk/by-id | grep usb-JetFlash | wc -l) -eq 0 \
-	-a $(ls /dev/disk/by-id | grep usb-USB_Mass_Storage_Device | wc -l) -eq 0 ]; then
-	echo -e "${GREEN}>> ${CORE_IMAGE}-${TARGET_BOARD}.tar.gz ${NC}"
-	cd ${SCRIP_DIR}
-	ls -ld --color ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}
-	ls -l --color ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}
-	echo ""
-	echo -e "${GREEN}>> all succeeded ${NC}"
-	print_boot_example
-	exit 0
-fi
-
-##########################################################
-echo -e "${GREEN}>> SD_MMC / Generic_USB_Flash_Disk / General_USB_Flash_Disk / usb-JetFlash / usb-USB_Mass_Storage_Device ${NC}"
-cd ${SCRIP_DIR}
-if [ $(ls /dev/disk/by-id | grep usb-Generic-_SD_MMC | wc -l) -ne 0 ]; then
-	SDDEV=$(ls -l /dev/disk/by-id/usb-Generic-_SD_MMC* | grep -v part | awk -F '->' '{print $2}' | sed 's/ //g' | sed 's/\.//g' | sed 's/\///g')
-elif [ $(ls /dev/disk/by-id | grep usb-Generic_USB_Flash_Disk | wc -l) -ne 0 ]; then
-	SDDEV=$(ls -l /dev/disk/by-id/usb-Generic_USB_Flash_Disk* | grep -v part | awk -F '->' '{print $2}' | sed 's/ //g' | sed 's/\.//g' | sed 's/\///g')
-elif [ $(ls /dev/disk/by-id | grep usb-General_USB_Flash_Disk | wc -l) -ne 0 ]; then
-	SDDEV=$(ls -l /dev/disk/by-id/usb-General_USB_Flash_Disk* | grep -v part | awk -F '->' '{print $2}' | sed 's/ //g' | sed 's/\.//g' | sed 's/\///g')
-elif [ $(ls /dev/disk/by-id | grep usb-USB_Mass_Storage_Device | wc -l) -ne 0 ]; then
-	SDDEV=$(ls -l /dev/disk/by-id/usb-USB_Mass_Storage_Device_* | grep -v part | awk -F '->' '{print $2}' | sed 's/ //g' | sed 's/\.//g' | sed 's/\///g')
-else
-	SDDEV=$(ls -l /dev/disk/by-id/usb-JetFlash* | grep -v part | awk -F '->' '{print $2}' | sed 's/ //g' | sed 's/\.//g' | sed 's/\///g')
-fi
-SDDEV=/dev/${SDDEV}
-
-##########################################################
-echo -e "${GREEN}>> SD_MMC fdisk ${NC}"
-sudo umount ${SDDEV}1 || true
-sudo umount ${SDDEV}2 || true
-sudo umount ${SDDEV}3 || true
-sudo umount ${SDDEV}4 || true
-sudo umount ${SDDEV}5 || true
-sudo umount ${SDDEV}6 || true
-sudo umount ${SDDEV}7 || true
-sudo umount ${SDDEV}8 || true
-sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | sudo fdisk $SDDEV
- d
-
- d
-
- d
-
- d
-
- d
-
- d
-
- d
-
- d
-
- n
- p
- 1
-
- +1024M
- n
- p
- 2
-
-
- t
- 1
- c
- t
- 2
- 83
- p
- w
- q
-EOF
-
-##########################################################
-echo -e "${GREEN}>> SD_MMC boot ${NC}"
-echo yes | sudo mkfs.vfat -n BOOT ${SDDEV}1
-sudo mount -t vfat ${SDDEV}1 mnt
-sudo rm -rfv ./mnt/*
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/Image | awk '{print $11}') mnt/Image
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/r*.dtb mnt/
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz | awk '{print $11}') mnt/modules-${TARGET_BOARD}.tgz
-sudo umount mnt
-
-##########################################################
-echo -e "${GREEN}>> SD_MMC boot ${NC}"
-echo yes | sudo mkfs.vfat -n BOOT ${SDDEV}1
-sudo mount -t vfat ${SDDEV}1 mnt
-sudo rm -rfv ./mnt/*
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/Image | awk '{print $11}') mnt/Image
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/r*.dtb mnt/
-sudo /bin/cp ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/$(ls -l ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz | awk '{print $11}') mnt/modules-${TARGET_BOARD}.tgz
-sudo umount mnt
-
-##########################################################
-echo -e "${GREEN}>> SD_MMC rootfs ${NC}"
-echo yes | sudo mkfs.ext4 -E lazy_itable_init=1,lazy_journal_init=1 ${SDDEV}2 -L rootfs -U 614e0000-0000-4b53-8000-1d28000054a9 -jDv
-sudo tune2fs -O ^has_journal ${SDDEV}2
-sudo mount -t ext4 -O noatime,nodirame,data=writeback ${SDDEV}2 mnt
-sudo rm -rfv ./mnt/*
-sudo tar zxvf ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/${CORE_IMAGE}-${TARGET_BOARD}.tar.gz -C mnt/
-sudo tar zxvf ${BUILD_DIR}/tmp/deploy/images/${TARGET_BOARD}/modules-${TARGET_BOARD}.tgz -C mnt/
-sudo sync &
-(for n in $(seq 1 1440); do sleep 1 ; if [ $(grep -e Dirty: /proc/meminfo | awk '{print $2}') -lt 4096 ]; then break ; fi; done ; killall watch ;) &
-watch -d -e grep -e Dirty: -e Writeback: /proc/meminfo
-echo -e "${GREEN} >> SD_MMC umount ${NC}"
-sudo umount mnt
-sudo fsck.ext4 -y ${SDDEV}2
 
 ##########################################################
 print_boot_example
