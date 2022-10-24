@@ -27,7 +27,7 @@ function print_boot_example() {
         echo ""
         echo ">> FOR SD BOOT"
 	echo -e "${YELLOW} => setenv bootargs rw rootwait ipv6.disable=1 earlycon root=/dev/mmcblk1p2 ${NC}"
-	echo -e "${YELLOW} => setenv bootcmd 'ext4load mmc 0:1 0x48080000 Image; ext4load mmc 0:1 0x48000000 ${SOC_FAMILY_PLUS}-${TARGET_BOARD}.dtb; booti 0x48080000 - 0x48000000' ${NC}"
+	echo -e "${YELLOW} => setenv bootcmd 'ext4load mmc 1:1 0x48080000 Image; ext4load mmc 1:1 0x48000000 ${SOC_FAMILY_PLUS}-${TARGET_BOARD}.dtb; booti 0x48080000 - 0x48000000' ${NC}"
 	echo -e "${YELLOW} => saveenv ${NC}"
 	echo ""
 }
