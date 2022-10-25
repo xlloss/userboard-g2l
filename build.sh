@@ -56,8 +56,8 @@ function print_boot_example() {
 ##########################################################
 sudo umount mnt || true
 mkdir -p mnt && sudo rm -rfv mnt/*
-if [ ! -e Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip ]; then
-	echo -e ${YELLOW}'Please download the RTK0EF0045Z0024AZJ-v3.0.0-update2.zip from renesas.com . '${NC}
+if [ ! -e Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update2.zip ]; then
+	echo -e ${YELLOW}'Please download the RTK0EF0045Z0021AZJ-v3.0.0-update2.zip from renesas.com . '${NC}
 	exit 1
 fi
 if [ ! -e Renesas_software/RTK0EF0045Z13001ZJ-v1.21_EN.zip ]; then
@@ -83,11 +83,11 @@ echo ""
 mkdir -p ${SCRIP_DIR}/sources
 cd ${SCRIP_DIR}/sources
 echo -e ${GREEN}'>> RZ/G Verified Linux Package V3.0.0-update2'${NC}
-[ ! -d ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2 ] && \
-	unzip -o ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip -d ../Renesas_software
+[ ! -d ../Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update2.zip ] && \
+	unzip -o ../Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update2.zip -d ../Renesas_software
 if [ ! -d meta-renesas -o ! -d poky -o ! -d meta-openembedded -o ! -d meta-qt5 ]; then
-	tar zxvf ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_bsp_v3.0.0.tar.gz
-	patch -p1 -l -f --fuzz 3 -i ../Renesas_software/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_v300-to-v300update2.patch
+	tar zxvf ../Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update2/rzg_bsp_v3.0.0.tar.gz
+	patch -p1 -l -f --fuzz 3 -i ../Renesas_software/RTK0EF0045Z0021AZJ-v3.0.0-update2/rzg_v300-to-v300update2.patch
 fi
 
 echo -e ${GREEN}'>> RZ MPU Graphics Library Evaluation Version V1.21 for RZ/G2L, RZ/G2LC, and RZ/V2L'${NC}
