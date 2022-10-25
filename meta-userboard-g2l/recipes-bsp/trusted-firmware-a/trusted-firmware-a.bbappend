@@ -11,6 +11,9 @@ FLASH_ADDRESS_FIP_greenpak-rzg2l = "1D200"
 
 SRC_URI_append = " \
 	file://rz_board.mk \
+	file://0001-GREENPAK_RZG2L-add-DDR4-1GB-IS43QR16512A.patch \
+	file://0002-GREENPAK_RZG2L-add-SPI-Flash-IS25WP512M.patch \
+	file://0003-GREENPAK_RZG2L-enable-SPI-Flash-IS25WP512M.patch \
 "
 
 do_addboards () {

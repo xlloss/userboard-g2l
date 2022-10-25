@@ -1,0 +1,21 @@
+From f620f29e7abe4850d3cc2e30925b759345f2c86a Mon Sep 17 00:00:00 2001
+From: slash <slash@gmail.com>
+Date: Tue, 25 Oct 2022 16:07:57 +0800
+Subject: [PATCH] [GREENPAK_RZG2L] enable SPI Flash IS25WP512M
+
+---
+ plat/renesas/rz/common/rz_common.mk | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/plat/renesas/rz/common/rz_common.mk b/plat/renesas/rz/common/rz_common.mk
+index dd6d51c5b..c2a93461b 100755
+--- a/plat/renesas/rz/common/rz_common.mk
++++ b/plat/renesas/rz/common/rz_common.mk
+@@ -14,6 +14,7 @@ USE_COHERENT_MEM				:= 0
+ TRUSTED_BOARD_BOOT				:= 0
+ PROTECTED_CHIPID				:= 1
+ DEBUG_RZG2L_FPGA				:= 0
++SPI_FLASH						:= IS25WP512M
+ $(eval $(call add_define,PROTECTED_CHIPID))
+ $(eval $(call add_define,DEBUG_RZG2L_FPGA))
+ 
