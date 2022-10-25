@@ -148,6 +148,10 @@ DDR_SIZE = 4GB
 SWIZZLE  = T2C
 endif
 
+ifeq ("$(BOARD)", "GREENPAK_RZG2L")
+	CFLAGS += -DGREENPAK_RZG2L=1
+endif
+
 # Select SERIAL_FLASH("ENABLE"or"DISABLE" )
 ifeq ("$(SERIAL_FLASH)", "")
 SERIAL_FLASH = ENABLE
@@ -177,10 +181,10 @@ DDR_TYPE = INTERNAL
 endif
 
 #CPU
-CPU     = 
+CPU     =
 AArch   = 64
-THUMB   = 
-AS_NEON = 
+THUMB   =
+AS_NEON =
 CC_NEON = -mgeneral-regs-only
 ALIGN   = -mstrict-align
 AArch32_64  = AArch64

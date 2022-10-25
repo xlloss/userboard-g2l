@@ -3,6 +3,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI_append = " \
 	file://qspiFlash-writer-helper \
 	file://makefile \
+	file://0001-GREENPAK_RZG2L-add-DDR4-1G-IS43QR16512A.patch \
 "
 
 do_compile() {
